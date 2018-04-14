@@ -48,4 +48,7 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
 
 * [Micron Automotive LPDDR SDRAM](http://www.micron.com/~/media/Documents/Products/Data%20Sheet/DRAM/Mobile%20DRAM/Low-Power%20DRAM/LPDDR/60-series/t67m_512mb_embedded_lpddr.pdf)
 
+* [Discussion on Hackaday](https://hackaday.com/2013/01/11/ask-hackaday-we-might-have-some-fpgas-to-hack/)
+
+    Includes JTAG pin connector layout 
 
