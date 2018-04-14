@@ -6,7 +6,7 @@ The project log can be found [here](https://hackaday.io/project/136227-panologic
 
 This project starts with the work of The Cranky Sysadmin, and will build on top of that:
  
- * [In Search of FPGAs or Pano Logic Generation 1 Teardown](hhttp://blog.2gn.com/electronics/in-search-of-fpgas-or-pano-logic-generation-1-teardown/).
+ * [In Search of FPGAs or Pano Logic Generation 1 Teardown](http://blog.2gn.com/electronics/in-search-of-fpgas-or-pano-logic-generation-1-teardown/)
  * [Exploiting the FPGA in the Pano Logic Zero Client](http://blog.2gn.com/electronics/exploiting-the-fpga-in-the-pano-logic-zero-client/)
  * [More Reverse Engineering of the Panologic Thin Client G1](http://blog.2gn.com/electronics/more-reverse-engineering-of-the-panologic-thin-client-g1-2/)
 
@@ -36,7 +36,7 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
 
 * [SMSC USB2513](http://www.mouser.com/catalog/specsheets/2513.pdf)
 
-    http://www.mouser.com/catalog/specsheets/2513.pdf
+    USB 2.0 High-Speed 3-Port Hub Controller
 
 * [Micron M25P80](http://www.micron.com/~/media/Documents/Products/Data%20Sheet/NOR%20Flash/Serial%20NOR/M25P/M25P80.pdf)
  
