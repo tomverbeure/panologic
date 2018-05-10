@@ -43,10 +43,10 @@ Pinout is as follows:
 
     Supported by Xilinx ISE Free edition!
 
-    Full component name: XC3S1600E-FGG320 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf)
+    Full component name: XC3S1600E-FGG320 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf))
     Speed grade 5, Commercial.
 
-    Ordering code: XC3S1600E-5-FGG320C 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf)
+    Ordering code: XC3S1600E-5-FGG320C 
 
     Available at [Digikey](https://www.digikey.com/product-detail/en/xilinx-inc/XC3S1600E-4FGG320C/122-1481-ND/1091709)
 
