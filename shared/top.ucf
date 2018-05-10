@@ -1,0 +1,23 @@
+
+# PlanAhead Generated physical constraints 
+
+NET "clk" LOC = U10;
+
+# PlanAhead Generated IO constraints 
+
+NET "clk" IOSTANDARD = LVCMOS33;
+NET "leds[5]" IOSTANDARD = LVCMOS33;
+NET "leds[4]" IOSTANDARD = LVCMOS33;
+NET "leds[3]" IOSTANDARD = LVCMOS33;
+NET "leds[2]" IOSTANDARD = LVCMOS33;
+NET "leds[1]" IOSTANDARD = LVCMOS33;
+NET "leds[0]" IOSTANDARD = LVCMOS33;
+
+# PlanAhead Generated physical constraints 
+
+NET "leds[0]" LOC = U3;
+NET "leds[1]" LOC = N10;
+NET "leds[2]" LOC = U16;
+NET "leds[3]" LOC = T4;
+NET "leds[4]" LOC = H1;
+NET "leds[5]" LOC = L1;
