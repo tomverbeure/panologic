@@ -1,23 +1,46 @@
 
-# PlanAhead Generated physical constraints 
+NET "clk" LOC = U10 IOSTANDARD = LVCMOS33;
 
-NET "clk" LOC = U10;
+NET "spi_cs_" LOC = U3  IOSTANDARD = LVCMOS33;
+NET "spi_clk" LOC = U16 IOSTANDARD = LVCMOS33;
+NET "spi_dq0" LOC = T4  IOSTANDARD = LVCMOS33;
+NET "spi_dq1" LOC = N10 IOSTANDARD = LVCMOS33;
 
-# PlanAhead Generated IO constraints 
+NET "leds[0]" LOC = H1  IOSTANDARD = LVCMOS33;
+NET "leds[1]" LOC = L1  IOSTANDARD = LVCMOS33;
 
-NET "clk" IOSTANDARD = LVCMOS33;
-NET "leds[5]" IOSTANDARD = LVCMOS33;
-NET "leds[4]" IOSTANDARD = LVCMOS33;
-NET "leds[3]" IOSTANDARD = LVCMOS33;
-NET "leds[2]" IOSTANDARD = LVCMOS33;
-NET "leds[1]" IOSTANDARD = LVCMOS33;
-NET "leds[0]" IOSTANDARD = LVCMOS33;
+NET "audio_mclk"   LOC = U9  IOSTANDARD = LVCMOS33;
+NET "audio_bclk"   LOC = P10 IOSTANDARD = LVCMOS33;
+NET "audio_dacdat" LOC = U15 IOSTANDARD = LVCMOS33;
+NET "audio_daclrc" LOC = N12 IOSTANDARD = LVCMOS33;
+NET "audio_adcdat" LOC = V3  IOSTANDARD = LVCMOS33;
+NET "audio_daclrc" LOC = V15 IOSTANDARD = LVCMOS33;
+NET "audio_sdin"   LOC = T3  IOSTANDARD = LVCMOS33;
+NET "audio_sclk"   LOC = R10 IOSTANDARD = LVCMOS33;
 
-# PlanAhead Generated physical constraints 
+NET "sdram_a[0]"   LOC = F11 IOSTANDARD = LVCMOS33;
+NET "sdram_a[1]"   LOC = D13 IOSTANDARD = LVCMOS33;
+NET "sdram_a[2]"   LOC = E13 IOSTANDARD = LVCMOS33;
+NET "sdram_a[3]"   LOC = E11 IOSTANDARD = LVCMOS33;
+NET "sdram_a[4]"   LOC = B16 IOSTANDARD = LVCMOS33;
+NET "sdram_a[5]"   LOC = A16 IOSTANDARD = LVCMOS33;
+NET "sdram_a[6]"   LOC = A12 IOSTANDARD = LVCMOS33;
+NET "sdram_a[7]"   LOC = A11 IOSTANDARD = LVCMOS33;
+NET "sdram_a[8]"   LOC = D14 IOSTANDARD = LVCMOS33;
+NET "sdram_a[9]"   LOC = A14 IOSTANDARD = LVCMOS33;
+NET "sdram_a[10]"  LOC = B14 IOSTANDARD = LVCMOS33;
+NET "sdram_a[11]"  LOC = A13 IOSTANDARD = LVCMOS33;
+NET "sdram_ck"     LOC = J17 IOSTANDARD = LVCMOS33;
+NET "sdram_ck_"    LOC = J16 IOSTANDARD = LVCMOS33;
+NET "sdram_cke"    LOC = E15 IOSTANDARD = LVCMOS33;
+#NET "sdram_cs_"    LOC =  IOSTANDARD = LVCMOS33;
+NET "sdram_we_"    LOC = P16 IOSTANDARD = LVCMOS33;
+NET "sdram_cas_"   LOC = M14 IOSTANDARD = LVCMOS33;
+NET "sdram_ras_"   LOC = H14 IOSTANDARD = LVCMOS33;
+NET "sdram_dm[0]"  LOC = K12 IOSTANDARD = LVCMOS33;
+NET "sdram_dm[1]"  LOC = K13 IOSTANDARD = LVCMOS33;
+NET "sdram_dm[2]"  LOC = J14 IOSTANDARD = LVCMOS33;
+NET "sdram_dm[3]"  LOC = H15 IOSTANDARD = LVCMOS33;
+NET "sdram_ba[0]"  LOC = F12 IOSTANDARD = LVCMOS33;
+NET "sdram_ba[1]"  LOC = E12 IOSTANDARD = LVCMOS33;
 
-NET "leds[0]" LOC = U3;
-NET "leds[1]" LOC = N10;
-NET "leds[2]" LOC = U16;
-NET "leds[3]" LOC = T4;
-NET "leds[4]" LOC = H1;
-NET "leds[5]" LOC = L1;

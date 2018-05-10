@@ -10,6 +10,31 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
  * [Exploiting the FPGA in the Pano Logic Zero Client](http://blog.2gn.com/electronics/exploiting-the-fpga-in-the-pano-logic-zero-client/)
  * [More Reverse Engineering of the Panologic Thin Client G1](http://blog.2gn.com/electronics/more-reverse-engineering-of-the-panologic-thin-client-g1-2/)
 
+## JTAG Connector
+
+6 pin connector J8 is the JTAG connector. When the IO connectors are at the bottom, J8 is located
+at the top left of the Xilinx chip, and pin 1 is the one on the left.
+
+The pin order does NOT follow the one of my Digilent clone.
+
+Pinout is as follows:
+
+1. VCC
+2. TDI
+3. TMS
+4. TDO
+5. TCK
+6. GND
+
+## SPI Connector
+
+1. GND
+2. CS#
+3. MOSI
+4. CLK
+5. MISO
+6. VCC
+
 ## Resources
 
 * [Xilinx Spartan-3E XCS3S1600E](http://www.xilinx.com/support/documentation/data_sheets/ds312.pdf)
@@ -17,6 +42,14 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
     1600K system gates, 231K distribute RAM bits, 648K block RAM bits, 36 multipliers.
 
     Supported by Xilinx ISE Free edition!
+
+    Full component name: XC3S1600E-FGG320 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf)
+    Speed grade 5, Commercial.
+
+    Ordering code: XC3S1600E-5-FGG320C 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf)
+
+    Available at [Digikey](https://www.digikey.com/product-detail/en/xilinx-inc/XC3S1600E-4FGG320C/122-1481-ND/1091709)
+
 
 * [Micrel KSZ8721BL 10/100BASE-TX/FX MII Physical Layer Transceiver](https://www.mouser.com/ProductDetail/Microchip-Technology-Micrel/KSZ8721BL?qs=kh6iOki%2FeLEk0sRQ0%2FKccQ%3D%3D)
 
