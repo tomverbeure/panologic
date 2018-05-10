@@ -41,15 +41,16 @@ Pinout is as follows:
 
     1600K system gates, 231K distribute RAM bits, 648K block RAM bits, 36 multipliers.
 
-    Supported by Xilinx ISE Free edition!
+    Supported by Xilinx ISE 14.7 Free edition!
 
     Full component name: XC3S1600E-FGG320 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf))
     Speed grade 5, Commercial.
 
     Ordering code: XC3S1600E-5-FGG320C 
 
-    Available at [Digikey](https://www.digikey.com/product-detail/en/xilinx-inc/XC3S1600E-4FGG320C/122-1481-ND/1091709)
+    FG320 footprint is on page 208 of DS312.
 
+    Available at [Digikey](https://www.digikey.com/product-detail/en/xilinx-inc/XC3S1600E-4FGG320C/122-1481-ND/1091709)
 
 * [Micrel KSZ8721BL 10/100BASE-TX/FX MII Physical Layer Transceiver](https://www.mouser.com/ProductDetail/Microchip-Technology-Micrel/KSZ8721BL?qs=kh6iOki%2FeLEk0sRQ0%2FKccQ%3D%3D)
 
