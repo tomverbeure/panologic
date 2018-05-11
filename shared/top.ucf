@@ -107,6 +107,12 @@ NET "sdram_dqs[0]" LOC = R15 | IOSTANDARD = LVCMOS33;
 
 NET "vo_clk"  LOC = E10  | IOSTANDARD = LVCMOS33;   # CLK
 
+NET "vo_blank_" LOC = A8  | IOSTANDARD = LVCMOS33;  # BLANK_
+                                                    # SYNC_  = 10k pullup to VDD
+                                                    # SYNC_T = 10k R to ?
+                                                    # M1 = 10 pulldown to GND
+                                                    # M2 = 10 pulldown to GND
+
 NET "vo_r[7]" LOC = D9  | IOSTANDARD = LVCMOS33;    # R9
 NET "vo_r[6]" LOC = E9  | IOSTANDARD = LVCMOS33;    # R8
 NET "vo_r[5]" LOC = C9  | IOSTANDARD = LVCMOS33;    # R7
@@ -140,10 +146,56 @@ NET "vo_b[0]" LOC = A6  | IOSTANDARD = LVCMOS33;    # B2
                                                     # B1 = GND
                                                     # B0 = GND
 
-NET "vo_blank_" LOC = A8  | IOSTANDARD = LVCMOS33;  # BLANK_
-                                                    # SYNC_  = 10k pullup to VDD
-                                                    # SYNC_T = 10k R to ?
-                                                    # M1 = 10 pulldown to GND
-                                                    # M2 = 10 pulldown to GND
+
+
+#============================================================
+# USB Host - ISP1760BE
+#============================================================
+
+NET "usb_cs_"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 106
+NET "usb_rd_"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 107
+NET "usb_wr_"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 108
+NET "usb_irq"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 112
+NET "usb_dreq"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 114
+NET "usb_dack"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 116
+
+NET "usb_a[17]" LOC = P9  | IOSTANDARD = LVCMOS33;       # Pin 105
+NET "usb_a[16]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[15]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[14]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[13]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[12]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[11]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[10]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[9]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[8]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[7]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[6]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[5]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[4]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[3]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[2]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_a[1]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+
+NET "usb_d[15]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[14]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[13]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[12]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[11]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[10]" LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[9]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[8]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[7]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[6]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[5]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[4]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[3]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[2]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[1]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+NET "usb_d[0]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
+
+
+
+
 
 

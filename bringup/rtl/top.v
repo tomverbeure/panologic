@@ -44,8 +44,13 @@ module pano_pins(
     input wire [3:0] sdram_dm,
     input wire [1:0] sdram_ba,
     input wire [31:0] sdram_dq,
-    input wire [3:0] sdram_dqs
+    input wire [3:0] sdram_dqs,
 
+    output wire vo_clk,
+    output wire vo_blank_,
+    output wire [7:0] vo_r,
+    output wire [7:0] vo_g,
+    output wire [7:0] vo_b
 );
 
     reg [30:0]             cntr;
@@ -54,6 +59,12 @@ module pano_pins(
         cntr=cntr+1;
 
     assign leds = cntr [24:23];
+
+    assign vo_clk = clk;
+    assign vo_blank_ = 1'b0;
+    assign vo_r = 0;
+    assign vo_g = 0;
+    assign vo_b = 0;
 
 endmodule
 
