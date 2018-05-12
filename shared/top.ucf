@@ -1,5 +1,20 @@
 
-NET "clk" LOC = U10 | IOSTANDARD = LVCMOS33;
+
+# 100MHZ Oscillator
+NET "osc_clk" LOC = U10 | IOSTANDARD = LVCMOS33;
+
+
+
+#============================================================
+# IDT ICS307 Clock Generator
+#============================================================
+
+NET "idt_sclk"   LOC = F2  | IOSTANDARD = LVCMOS33;
+NET "idt_strobe" LOC = G5  | IOSTANDARD = LVCMOS33;
+NET "idt_data"   LOC = F1  | IOSTANDARD = LVCMOS33;
+
+NET "idt_iclk"   LOC = J2  | IOSTANDARD = LVCMOS33;
+NET "idt_clk1"   LOC = J4  | IOSTANDARD = LVCMOS33;
 
 #============================================================
 # SPI
@@ -145,8 +160,6 @@ NET "vo_b[1]" LOC = B6  | IOSTANDARD = LVCMOS33;    # B3
 NET "vo_b[0]" LOC = A6  | IOSTANDARD = LVCMOS33;    # B2
                                                     # B1 = GND
                                                     # B0 = GND
-
-
 
 #============================================================
 # USB Host - ISP1760BE
