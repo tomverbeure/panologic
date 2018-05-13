@@ -64,6 +64,7 @@ NET "sdram_a[11]"  LOC = A13 | IOSTANDARD = SSTL18_I;
 
 NET "sdram_ck"     LOC = J17 | IOSTANDARD = SSTL18_I;
 NET "sdram_ck_"    LOC = J16 | IOSTANDARD = SSTL18_I;
+
 NET "sdram_cke"    LOC = E15 | IOSTANDARD = SSTL18_I;
 #NET "sdram_cs_"    LOC =  | IOSTANDARD = SSTL18_I;
 NET "sdram_we_"    LOC = P16 | IOSTANDARD = SSTL18_I;
