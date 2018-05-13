@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Sun May 13 19:21:37 2018
+[*]
+[dumpfile] "/home/vagrant/projects/panologic/bringup/tb/waves.vcd"
+[dumpfile_mtime] "Sun May 13 19:21:17 2018"
+[dumpfile_size] 647469
+[savefile] "/home/vagrant/projects/panologic/bringup/tb/waves.gtkw"
+[timestart] 0
+[size] 1266 810
+[pos] -1 -1
+*-17.437849 318500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[sst_width] 224
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 227
+@28
+testbench.u_pano_pins.osc_clk
+@29
+testbench.u_pano_pins.osc_reset_
+@28
+testbench.u_pano_pins.idt_data
+testbench.u_pano_pins.idt_sclk
+testbench.u_pano_pins.idt_strobe
+@22
+testbench.u_pano_pins.idt_cntr[6:0]
+testbench.u_pano_pins.cntr[30:0]
+[pattern_trace] 1
+[pattern_trace] 0

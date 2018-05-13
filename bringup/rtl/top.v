@@ -61,15 +61,24 @@ module pano_pins(
     output wire [7:0] vo_b
 );
 
-    reg [30:0]             cntr;
+    reg osc_reset_;
+
+`ifndef SYNTHESIS
+    initial begin
+        osc_reset_ <= 1'b0;
+    end
+`endif
+
     always @(posedge osc_clk)
-        cntr=cntr+1;
+        osc_reset_ <= 1'b1;
 
-    assign idt_sclk = 1'b0;
-    assign idt_strobe = 1'b0;
-    assign idt_data = 1'b0;
+    reg [30:0]             cntr;
+    always @(posedge osc_clk) begin
+        cntr <= cntr+1;
 
-    assign idt_iclk = cntr[0];
+        if (!osc_reset_)
+            cntr <= 0;
+    end
 
     assign led_green = cntr[23];
     assign led_blue  = cntr[24];
@@ -87,6 +96,50 @@ module pano_pins(
 
     assign sdram_ck  = osc_clk;
     assign sdram_ck_ = !osc_clk;
+
+    reg [6:0] idt_cntr;
+    always @(posedge osc_clk) begin
+        if (&idt_cntr != 1'b1) begin
+            idt_cntr <= idt_cntr + 1;
+        end
+
+        if (!osc_reset_)
+            idt_cntr <= 0;
+    end
+
+    wire [6:0] idt_r;
+    wire [8:0] idt_v;
+    wire [2:0] idt_s;
+    wire [1:0] idt_f;
+    wire       idt_ttl;
+    wire [1:0] idt_c;
+
+    // Create pre output-divider clock of 266MHz:
+    // 50 * 2 * (8+8)/(4+2)
+    assign idt_r   = 7'd4;        
+    assign idt_v   = 9'd8;
+    
+    // Final clock should be 66MHz (266/4)
+    assign idt_s   = 3'b011;    // CLK1 output divide = 4
+
+    assign idt_f   = 2'b01;     // CLK2 = Fref/2
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+
+    wire [23:0] idt_config;
+    assign idt_config = { idt_c, idt_ttl, idt_f, idt_s, idt_v, idt_r };
+
+    reg [23:0] idt_config_reverse;
+    integer i;
+    always @(*) 
+        for(i=0;i<24;i=i+1)
+            idt_config_reverse[23-i] = idt_config[i];
+
+    assign idt_sclk = (idt_cntr < 48) & idt_cntr[0];
+    assign idt_data = idt_cntr < 48 ? idt_config_reverse[idt_cntr[5:1]] : 1'b0;
+    assign idt_strobe = idt_cntr[5:1] == 31;
+
+    assign idt_iclk = cntr[0];
 
 endmodule
 
