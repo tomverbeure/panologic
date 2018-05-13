@@ -1,30 +1,44 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Sun May 13 19:21:37 2018
+[*] Sun May 13 19:48:31 2018
 [*]
 [dumpfile] "/home/vagrant/projects/panologic/bringup/tb/waves.vcd"
-[dumpfile_mtime] "Sun May 13 19:21:17 2018"
-[dumpfile_size] 647469
+[dumpfile_mtime] "Sun May 13 19:46:38 2018"
+[dumpfile_size] 713716
 [savefile] "/home/vagrant/projects/panologic/bringup/tb/waves.gtkw"
 [timestart] 0
 [size] 1266 810
 [pos] -1 -1
-*-17.437849 318500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.437849 32025000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [sst_width] 224
-[signals_width] 134
+[signals_width] 259
 [sst_expanded] 1
 [sst_vpaned_height] 227
 @28
 testbench.u_pano_pins.osc_clk
-@29
 testbench.u_pano_pins.osc_reset_
-@28
 testbench.u_pano_pins.idt_data
 testbench.u_pano_pins.idt_sclk
 testbench.u_pano_pins.idt_strobe
 @22
 testbench.u_pano_pins.idt_cntr[6:0]
 testbench.u_pano_pins.cntr[30:0]
+@200
+-
+@28
+testbench.u_pano_pins.vo_reset_
+@25
+testbench.u_pano_pins.line_cntr[11:0]
+testbench.u_pano_pins.col_cntr[11:0]
+@28
+testbench.u_pano_pins.vo_clk
+testbench.u_pano_pins.vo_vsync
+testbench.u_pano_pins.vo_hsync
+testbench.u_pano_pins.vo_blank
+@22
+testbench.u_pano_pins.vo_r[7:0]
+testbench.u_pano_pins.vo_g[7:0]
+testbench.u_pano_pins.vo_b[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

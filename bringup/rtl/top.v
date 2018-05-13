@@ -56,9 +56,9 @@ module pano_pins(
 
     output wire vo_clk,
     output wire vo_blank_,
-    output wire [7:0] vo_r,
-    output wire [7:0] vo_g,
-    output wire [7:0] vo_b
+    output reg [7:0] vo_r,
+    output reg [7:0] vo_g,
+    output reg [7:0] vo_b
 );
 
     reg osc_reset_;
@@ -83,11 +83,74 @@ module pano_pins(
     assign led_green = cntr[23];
     assign led_blue  = cntr[24];
 
-    assign vo_clk = idt_clk1;
+    //============================================================
+    //
+    // VGA Test Image Generator
+    //
+    //============================================================
+    
+    localparam h_active = 640;
+    localparam h_fp = 16;
+    localparam h_sync = 96;
+    localparam h_bp = 48;
+    localparam h_total = h_active + h_fp + h_sync + h_bp;
+
+    localparam v_active = 480;
+    localparam v_fp = 11;
+    localparam v_sync = 2;
+    localparam v_bp = 31;
+    localparam v_total = v_active + v_fp + v_sync + v_bp;
+
+	reg [11:0] col_cntr;
+	reg [11:0] line_cntr;
+
+    assign vo_clk = cntr[1];
+    reg vo_reset_;
+
+    always @(posedge vo_clk) begin
+        vo_reset_ <= 1'b1;
+
+        if (!osc_reset_)
+            vo_reset_ <= 1'b0;
+    end
+
+	always @(posedge vo_clk) begin
+
+        if (col_cntr < h_total-1) begin
+            col_cntr <= col_cntr + 1;
+        end
+        else begin
+            col_cntr <= 0;
+
+            if (line_cntr < v_total-1) begin
+                line_cntr <= line_cntr + 1;
+            end
+            else begin
+                line_cntr <= 0;
+            end
+        end
+
+        if (!vo_reset_) begin
+			col_cntr <= 0;
+            line_cntr <= 0;
+        end
+	end
+    
+    reg vo_blank, vo_hsync, vo_vsync;
+	always @(posedge vo_clk) begin
+		vo_blank <= (line_cntr >= v_active) && (col_cntr >= h_active);
+		vo_hsync <= col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync);
+		vo_vsync <= line_cntr >= (v_active + v_fp) && line_cntr < (v_active + v_fp + v_sync);
+
+		vo_r <= {12{1'b1}};
+		vo_g <= line_cntr << 3;
+		vo_b <= col_cntr << 3;
+	end
+
+    always @(posedge vo_clk) begin
+    end
+
     assign vo_blank_ = cntr[5];
-    assign vo_r = {8{cntr[5]}};
-    assign vo_g = {8{cntr[5]}};
-    assign vo_b = {8{cntr[5]}};
 
     assign spi_cs_ = cntr[5];
     assign spi_clk = cntr[5];
@@ -96,6 +159,14 @@ module pano_pins(
 
     assign sdram_ck  = osc_clk;
     assign sdram_ck_ = !osc_clk;
+
+
+    //============================================================
+    //
+    // IDT Configuration
+    // CLK1 = iclk * 2 * (V + 8) / (R + 2) / <S>
+    //
+    //============================================================
 
     reg [6:0] idt_cntr;
     always @(posedge osc_clk) begin
