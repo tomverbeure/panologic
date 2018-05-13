@@ -16,14 +16,22 @@
 
 
 module pano_pins(
-    input wire clk,
+    input wire osc_clk,
 
-    output wire [1:0] leds,
+    output wire idt_iclk,
+    input wire  idt_clk1,
 
-    input wire spi_cs_,
-    input wire spi_clk,
-    input wire spi_dq0,
-    input wire spi_dq1,
+    output wire idt_sclk,
+    output wire idt_strobe,
+    output wire idt_data,
+
+    output wire led_green,
+    output wire led_blue,
+
+    output wire spi_cs_,
+    output wire spi_clk,
+    output wire spi_dq0,
+    output wire spi_dq1,
 
     input wire audio_mclk,
     input wire audio_bclk,
@@ -35,8 +43,8 @@ module pano_pins(
     input wire audio_sclk,
 
     input wire [11:0] sdram_a,
-    input wire sdram_ck,
-    input wire sdram_ck_,
+    output wire sdram_ck,
+    output wire sdram_ck_,
     input wire sdram_cke,
     input wire sdram_we_,
     input wire sdram_cas_,
@@ -54,17 +62,31 @@ module pano_pins(
 );
 
     reg [30:0]             cntr;
-
-    always @(posedge clk)
+    always @(posedge osc_clk)
         cntr=cntr+1;
 
-    assign leds = cntr [24:23];
+    assign idt_sclk = 1'b0;
+    assign idt_strobe = 1'b0;
+    assign idt_data = 1'b0;
 
-    assign vo_clk = clk;
-    assign vo_blank_ = 1'b0;
-    assign vo_r = 0;
-    assign vo_g = 0;
-    assign vo_b = 0;
+    assign idt_iclk = cntr[0];
+
+    assign led_green = cntr[23];
+    assign led_blue  = cntr[24];
+
+    assign vo_clk = idt_clk1;
+    assign vo_blank_ = cntr[5];
+    assign vo_r = {8{cntr[5]}};
+    assign vo_g = {8{cntr[5]}};
+    assign vo_b = {8{cntr[5]}};
+
+    assign spi_cs_ = cntr[5];
+    assign spi_clk = cntr[5];
+    assign spi_dq0 = cntr[5];
+    assign spi_dq1 = cntr[5];
+
+    assign sdram_ck  = osc_clk;
+    assign sdram_ck_ = !osc_clk;
 
 endmodule
 
