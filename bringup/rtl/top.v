@@ -164,6 +164,7 @@ module pano_pins(
         end
 	end
     
+    wire cursor;
     wire vo_blank;
     assign vo_blank = (line_cntr >= v_active) || (col_cntr >= h_active);
 
@@ -172,12 +173,65 @@ module pano_pins(
 		vo_hsync  <= (col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync)) ^ !(h_sync_positive);
 		vo_vsync  <= (line_cntr >= (v_active + v_fp) && line_cntr < (v_active + v_fp + v_sync)) ^ !(v_sync_positive);
 
-		vo_r <= vo_blank ? 8'd0 : {12{1'b1}};
-		vo_g <= vo_blank ? 8'd0 : line_cntr << 3;
-		vo_b <= vo_blank ? 8'd0 : col_cntr << 3;
+		vo_r <= vo_blank ? 8'd0 : {8{cursor}} ^ {12{1'b1}};
+		vo_g <= vo_blank ? 8'd0 : {8{cursor}} ^ line_cntr << 3;
+		vo_b <= vo_blank ? 8'd0 : {8{cursor}} ^ col_cntr << 3;
 	end
 
+    localparam x_size = 50;
+    localparam y_size = 50;
+
+    reg [11:0] x_pos;
+    reg [11:0] y_pos;
+    reg x_dir;
+    reg y_dir;
+
+    assign cursor =    (col_cntr  >= x_pos && col_cntr  < x_pos+x_size) 
+                    && (line_cntr >= y_pos && line_cntr < y_pos+y_size);
+
     always @(posedge vo_clk) begin
+        if (col_cntr == 0 && line_cntr == v_active) begin
+            if (x_dir == 1'b0) begin
+                if (x_pos + x_size < h_active-1) begin
+                    x_pos <= x_pos + 1;
+                end
+                else begin
+                    x_dir <= 1'b1;
+                end
+            end
+            else begin
+                if (x_pos > 0) begin
+                    x_pos <= x_pos - 1;
+                end
+                else begin
+                    x_dir <= 1'b0;
+                end
+            end
+
+            if (y_dir == 1'b0) begin
+                if (y_pos + y_size < v_active-1) begin
+                    y_pos <= y_pos + 1;
+                end
+                else begin
+                    y_dir <= 1'b1;
+                end
+            end
+            else begin
+                if (y_pos > 0) begin
+                    y_pos <= y_pos - 1;
+                end
+                else begin
+                    y_dir <= 1'b0;
+                end
+            end
+        end
+
+        if (!vo_reset_) begin
+            x_pos <= 0;
+            y_pos <= 0;
+            x_dir <= 1'b0;
+            y_dir <= 1'b0;
+        end
     end
 
     assign spi_cs_ = cntr[5];
