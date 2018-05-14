@@ -123,6 +123,9 @@ NET "sdram_dqs[0]" LOC = R15 | IOSTANDARD = SSTL18_I;
 
 NET "vo_clk"  LOC = E10  | IOSTANDARD = LVCMOS33;   # CLK
 
+NET "vo_vsync"  LOC = D1  | IOSTANDARD = LVCMOS33;  # B2B A[9]
+NET "vo_hsync"  LOC = C2  | IOSTANDARD = LVCMOS33;  # B2B A[11]
+
 NET "vo_blank_" LOC = A8  | IOSTANDARD = LVCMOS33;  # BLANK_
                                                     # SYNC_  = 10k pullup to VDD
                                                     # SYNC_T = 10k R to ?
@@ -209,7 +212,11 @@ NET "vo_b[0]" LOC = A6  | IOSTANDARD = LVCMOS33;    # B2
 #NET "usb_d[0]"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin xxx
 #
 
-
-
+#============================================================
+# Board to Board Connector
+#============================================================
+#NET "b2b_a[18]"  LOC = E5  | IOSTANDARD = LVCMOS33;          # B2B A[18]
+#NET "b2b_aa[8]"  LOC = R7  | IOSTANDARD = LVCMOS33;          # B2B A'[8]
+#NET "b2b_aa[16]" LOC = B7  | IOSTANDARD = LVCMOS33;          # B2B A'[16]
 
 

@@ -55,6 +55,8 @@ module pano_pins(
     input wire [3:0] sdram_dqs,
 
     output wire vo_clk,
+    output reg vo_vsync,
+    output reg vo_hsync,
     output wire vo_blank_,
     output reg [7:0] vo_r,
     output reg [7:0] vo_g,
@@ -104,6 +106,7 @@ module pano_pins(
 	reg [11:0] col_cntr;
 	reg [11:0] line_cntr;
 
+    // osc_clk = 100MHz, so use 25MHz for standard 640x480 @ 60
     assign vo_clk = cntr[1];
     reg vo_reset_;
 
@@ -136,7 +139,7 @@ module pano_pins(
         end
 	end
     
-    reg vo_blank, vo_hsync, vo_vsync;
+    reg vo_blank;
 	always @(posedge vo_clk) begin
 		vo_blank <= (line_cntr >= v_active) && (col_cntr >= h_active);
 		vo_hsync <= col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync);
@@ -146,11 +149,10 @@ module pano_pins(
 		vo_g <= line_cntr << 3;
 		vo_b <= col_cntr << 3;
 	end
+    assign vo_blank_ = !vo_blank;
 
     always @(posedge vo_clk) begin
     end
-
-    assign vo_blank_ = cntr[5];
 
     assign spi_cs_ = cntr[5];
     assign spi_clk = cntr[5];

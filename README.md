@@ -35,6 +35,52 @@ Pinout is as follows:
 5. MISO
 6. VCC
 
+## Board to Board Connector
+
+* A1  : GND
+* A2  : ?
+* A3  : GND
+* A4  : ?
+* A5  : GND
+* A6  : VGA B analog
+* A7  : GND
+* A8  : VGA G analog
+* A9  : VGA VSYNC - FPGA D1
+* A10 : VGA R analog
+* A11 : VGA HSYNC - FPGA C2 
+
+* A14 : GND
+* A15 : ? 
+* A16 : USB DN / SMSC USB2513 USBDN2\_DM pin 3
+* A17 : GND
+* A18 : FPGA E5
+* A19 : USB DP / SMSC USB2513 USBDN3\_DP pin 7
+* A20 : GND
+
+* A'1  : GND
+* A'2  : FPGA VCCO: F3, K1, H7, ...
+* A'3  : GND
+* A'4  : GND
+* A'5  : GND
+* A'6  : VGA PWR (5V)
+* A'7  : GND
+* A'8  : FPGA R7 
+* A'9  : FPGA H1 / LED Green
+* A'10 : ?
+* A'11 : ?
+
+* A'14 : GND
+* A'15 : ?
+* A'16 : FPGA B7
+* A'17 : GND
+* A'18 : ? 
+* A'19 : ?
+* A'20 : GND
+
+* VGA/SDA: Connected to top right pin of U23
+* VGA/SCL: Connected to bottom right pin of U23
+* U23: level shifters?
+
 ## Resources
 
 * [Xilinx Spartan-3E XCS3S1600E](http://www.xilinx.com/support/documentation/data_sheets/ds312.pdf)
