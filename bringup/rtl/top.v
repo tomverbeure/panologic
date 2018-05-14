@@ -91,6 +91,8 @@ module pano_pins(
     //
     //============================================================
     
+//`define VGA640X480
+`ifdef VGA640X480
     localparam h_active = 640;
     localparam h_fp = 16;
     localparam h_sync = 96;
@@ -104,12 +106,33 @@ module pano_pins(
     localparam v_bp = 31;
     localparam v_total = v_active + v_fp + v_sync + v_bp;
     localparam v_sync_positive = 0;
+`else
+    localparam h_active = 1920;
+    localparam h_fp = 88;
+    localparam h_sync = 44;
+    localparam h_bp = 148;
+    localparam h_total = h_active + h_fp + h_sync + h_bp;
+    localparam h_sync_positive = 1;
+
+    localparam v_active = 1080;
+    localparam v_fp = 4;
+    localparam v_sync = 5;
+    localparam v_bp = 36;
+    localparam v_total = v_active + v_fp + v_sync + v_bp;
+    localparam v_sync_positive = 1;
+`endif
 
 	reg [11:0] col_cntr;
 	reg [11:0] line_cntr;
 
+`ifdef VGA640X480
     // osc_clk = 100MHz, so use 25MHz for standard 640x480 @ 60
     assign vo_clk = cntr[1];
+`else
+    assign vo_clk = idt_clk1;
+`endif
+
+
     reg vo_reset_;
 
     always @(posedge vo_clk) begin
@@ -192,13 +215,17 @@ module pano_pins(
 
     // Create pre output-divider clock of 266MHz:
     // 50 * 2 * (8+8)/(4+2)
-    assign idt_r   = 7'd4;        
-    assign idt_v   = 9'd8;
     
-    // Final clock should be 66MHz (266/4)
-    assign idt_s   = 3'b011;    // CLK1 output divide = 4
+    // Input: 100MHz
+    // Output: 148.50MHz
+    // Ratio: 49/33
+    // 100 * 2 * (41+8) / (31+2) / 2
+    assign idt_r   = 7'd31;        
+    assign idt_v   = 9'd41;
 
-    assign idt_f   = 2'b01;     // CLK2 = Fref/2
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
     assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
     assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
 
@@ -215,7 +242,7 @@ module pano_pins(
     assign idt_data = idt_cntr < 48 ? idt_config_reverse[idt_cntr[5:1]] : 1'b0;
     assign idt_strobe = idt_cntr[5:1] == 31;
 
-    assign idt_iclk = cntr[0];
+    assign idt_iclk = osc_clk;
 
 endmodule
 
