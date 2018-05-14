@@ -57,7 +57,7 @@ module pano_pins(
     output wire vo_clk,
     output reg vo_vsync,
     output reg vo_hsync,
-    output wire vo_blank_,
+    output reg vo_blank_,
     output reg [7:0] vo_r,
     output reg [7:0] vo_g,
     output reg [7:0] vo_b
@@ -96,12 +96,14 @@ module pano_pins(
     localparam h_sync = 96;
     localparam h_bp = 48;
     localparam h_total = h_active + h_fp + h_sync + h_bp;
+    localparam h_sync_positive = 0;
 
     localparam v_active = 480;
     localparam v_fp = 11;
     localparam v_sync = 2;
     localparam v_bp = 31;
     localparam v_total = v_active + v_fp + v_sync + v_bp;
+    localparam v_sync_positive = 0;
 
 	reg [11:0] col_cntr;
 	reg [11:0] line_cntr;
@@ -139,17 +141,18 @@ module pano_pins(
         end
 	end
     
-    reg vo_blank;
-	always @(posedge vo_clk) begin
-		vo_blank <= (line_cntr >= v_active) && (col_cntr >= h_active);
-		vo_hsync <= col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync);
-		vo_vsync <= line_cntr >= (v_active + v_fp) && line_cntr < (v_active + v_fp + v_sync);
+    wire vo_blank;
+    assign vo_blank = (line_cntr >= v_active) || (col_cntr >= h_active);
 
-		vo_r <= {12{1'b1}};
-		vo_g <= line_cntr << 3;
-		vo_b <= col_cntr << 3;
+	always @(posedge vo_clk) begin
+        vo_blank_ <= !vo_blank;
+		vo_hsync  <= (col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync)) ^ !(h_sync_positive);
+		vo_vsync  <= (line_cntr >= (v_active + v_fp) && line_cntr < (v_active + v_fp + v_sync)) ^ !(v_sync_positive);
+
+		vo_r <= vo_blank ? 8'd0 : {12{1'b1}};
+		vo_g <= vo_blank ? 8'd0 : line_cntr << 3;
+		vo_b <= vo_blank ? 8'd0 : col_cntr << 3;
 	end
-    assign vo_blank_ = !vo_blank;
 
     always @(posedge vo_clk) begin
     end
