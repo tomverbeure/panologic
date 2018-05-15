@@ -119,6 +119,8 @@ Notes:
 
     Codec with Speaker Driver 
 
+    The control interface is configured to I2C (2-wire) mode, with the 8-bit address set to 0x34.
+
 * [IDT ICS307M-02LF](https://media.digikey.com/pdf/Data%20Sheets/IDT/ICS307-01,02_RevH.pdf)
 
     Programmable clock source
