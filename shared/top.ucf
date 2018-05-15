@@ -132,6 +132,9 @@ NET "vo_blank_" LOC = A8  | IOSTANDARD = LVCMOS33;  # BLANK_
                                                     # M1 = 10 pulldown to GND
                                                     # M2 = 10 pulldown to GND
 
+NET "vo_scl"  LOC = D4  | IOSTANDARD = LVCMOS33;
+NET "vo_sda"  LOC = G3  | IOSTANDARD = LVCMOS33;
+
 NET "vo_r[7]" LOC = D9  | IOSTANDARD = LVCMOS33;    # R9
 NET "vo_r[6]" LOC = E9  | IOSTANDARD = LVCMOS33;    # R8
 NET "vo_r[5]" LOC = C9  | IOSTANDARD = LVCMOS33;    # R7

@@ -58,6 +58,8 @@ module pano_pins(
     output reg vo_vsync,
     output reg vo_hsync,
     output reg vo_blank_,
+    inout  wire vo_scl,
+    inout  wire vo_sda,
     output reg [7:0] vo_r,
     output reg [7:0] vo_g,
     output reg [7:0] vo_b
@@ -132,6 +134,8 @@ module pano_pins(
     assign vo_clk = idt_clk1;
 `endif
 
+    assign vo_scl = 1'bz;
+    assign vo_sda = 1'bz;
 
     reg vo_reset_;
 

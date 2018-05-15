@@ -46,9 +46,9 @@ A'\* = outward facing side of the connector
 | Pin   | Function          | FPGA | Misc |
 |-------|-------------------|------|------|
 | A1    | GND               |      |
-| A2    | ?                 |      |
+| A2    | VGA SCL           | D4   | 
 | A3    | GND               |      |
-| A4    | ?                 |      |
+| A4    | VGA SDA           | G3   | 
 | A5    | GND               |      |
 | A6    | VGA B analog      |      |
 | A7    | GND               |      |
