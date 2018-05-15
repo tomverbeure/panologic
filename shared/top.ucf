@@ -36,6 +36,8 @@ NET "led_blue"  LOC = L1  | IOSTANDARD = LVCMOS33;
 # AUDIO - Wolfson CODEC
 #============================================================
 
+# mode is pulled down to GND -> two wire mode: I2C
+# csb is pulled down to GND -> I2C addr 0x34
 NET "audio_mclk"   LOC = U9  | IOSTANDARD = LVCMOS33;
 NET "audio_bclk"   LOC = P10 | IOSTANDARD = LVCMOS33;
 NET "audio_dacdat" LOC = U15 | IOSTANDARD = LVCMOS33;
@@ -131,6 +133,9 @@ NET "vo_blank_" LOC = A8  | IOSTANDARD = LVCMOS33;  # BLANK_
                                                     # SYNC_T = 10k R to ?
                                                     # M1 = 10 pulldown to GND
                                                     # M2 = 10 pulldown to GND
+
+NET "vo_scl"  LOC = D4  | IOSTANDARD = LVCMOS33;
+NET "vo_sda"  LOC = G3  | IOSTANDARD = LVCMOS33;
 
 NET "vo_r[7]" LOC = D9  | IOSTANDARD = LVCMOS33;    # R9
 NET "vo_r[6]" LOC = E9  | IOSTANDARD = LVCMOS33;    # R8

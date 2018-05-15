@@ -33,14 +33,15 @@ module pano_pins(
     output wire spi_dq0,
     output wire spi_dq1,
 
-    input wire audio_mclk,
-    input wire audio_bclk,
-    input wire audio_dacdat,
-    input wire audio_daclrc,
-    input wire audio_adcdat,
-    input wire audio_adclrc,
-    input wire audio_sdin,
-    input wire audio_sclk,
+    output wire audio_mclk,
+    input  wire audio_bclk,
+    input  wire audio_dacdat,
+    input  wire audio_daclrc,
+    input  wire audio_adcdat,
+    input  wire audio_adclrc,
+
+    output wire audio_sclk,
+    inout  wire audio_sdin,
 
     input wire [11:0] sdram_a,
     output wire sdram_ck,
@@ -58,6 +59,8 @@ module pano_pins(
     output reg vo_vsync,
     output reg vo_hsync,
     output reg vo_blank_,
+    inout  wire vo_scl,
+    inout  wire vo_sda,
     output reg [7:0] vo_r,
     output reg [7:0] vo_g,
     output reg [7:0] vo_b
@@ -132,6 +135,8 @@ module pano_pins(
     assign vo_clk = idt_clk1;
 `endif
 
+    assign vo_scl = 1'bz;
+    assign vo_sda = 1'bz;
 
     reg vo_reset_;
 
@@ -297,6 +302,17 @@ module pano_pins(
     assign idt_strobe = idt_cntr[5:1] == 31;
 
     assign idt_iclk = osc_clk;
+
+    //============================================================
+    //
+    //
+    // AUDIO
+    //
+    //============================================================
+
+    // I2C interface
+    assign audio_sclk = 1'bz;
+    assign audio_sdin = 1'bz;
 
 endmodule
 

@@ -10,6 +10,10 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
  * [Exploiting the FPGA in the Pano Logic Zero Client](http://blog.2gn.com/electronics/exploiting-the-fpga-in-the-pano-logic-zero-client/)
  * [More Reverse Engineering of the Pano Logic Thin Client G1](http://blog.2gn.com/electronics/more-reverse-engineering-of-the-panologic-thin-client-g1-2/)
 
+## FPGA Connections
+
+The pin constraint file can be found [here](shared/top.ucf).
+
 ## JTAG Connector
 
 6 pin connector J8 is the JTAG connector. When the IO connectors are at the bottom, J8 is located
@@ -37,46 +41,55 @@ Pinout is as follows:
 
 ## Board to Board Connector
 
-* A1  : GND
-* A2  : ?
-* A3  : GND
-* A4  : ?
-* A5  : GND
-* A6  : VGA B analog
-* A7  : GND
-* A8  : VGA G analog
-* A9  : VGA VSYNC - FPGA D1
-* A10 : VGA R analog
-* A11 : VGA HSYNC - FPGA C2 
+![Board 2 Board Connector Footprint](doc/board2board_conn_footprint.jpg)
 
-* A14 : GND
-* A15 : ? 
-* A16 : USB DN / SMSC USB2513 USBDN2\_DM pin 3
-* A17 : GND
-* A18 : FPGA E5
-* A19 : USB DP / SMSC USB2513 USBDN3\_DP pin 7
-* A20 : GND
+A\* = inward facing side of the connector
 
-* A'1  : GND
-* A'2  : FPGA VCCO: F3, K1, H7, ...
-* A'3  : GND
-* A'4  : GND
-* A'5  : GND
-* A'6  : VGA PWR (5V)
-* A'7  : GND
-* A'8  : FPGA R7 
-* A'9  : FPGA H1 / LED Green
-* A'10 : ?
-* A'11 : ?
+A'\* = outward facing side of the connector
 
-* A'14 : GND
-* A'15 : ?
-* A'16 : FPGA B7
-* A'17 : GND
-* A'18 : ? 
-* A'19 : ?
-* A'20 : GND
+| Pin   | Function          | FPGA | Misc |
+|-------|-------------------|------|------|
+| A1    | GND               |      |
+| A2    | VGA SCL           | D4   | 
+| A3    | GND               |      |
+| A4    | VGA SDA           | G3   | 
+| A5    | GND               |      |
+| A6    | VGA B analog      |      |
+| A7    | GND               |      |
+| A8    | VGA G analog      |      |
+| A9    | VGA VSYNC         | D1   |
+| A10   | VGA R analog      |      |
+| A11   | VGA HSYNC         | C2   |
+|       |                   |      |
+| A14   | GND               |      |
+| A15   | SMSC USB2513 USBDN2\_DP pin 4   | |
+| A16   | SMSC USB2513 USBDN2\_DM pin 3   | |
+| A17   | GND               |      |
+| A18   | SMSC USB2513 USBDN3\_DM pin 6   | E5   |
+| A19   | SMSC USB2513 USBDN3\_DP pin 7   | |
+| A20   | GND               |      |
+|       |                   |      |
+| A'1   | GND               |      |
+| A'2   | FPGA VCCO 3.3V    | F3, K1, H7, ... |
+| A'3   | GND               |      |
+| A'4   | ?                 |      | 1.8V | 
+| A'5   | GND               |      |
+| A'6   | VGA PWR (5V)      |      |
+| A'7   | GND               |      |
+| A'8   | Button            | R7   | (Pressed is 3.3V) | 
+| A'9   | LED Green         | H1   |
+| A'10  | LED Blue          | L1   |
+| A'11  | ?                 |      | 4.8V
+|       |                   |      |
+| A'14  | GND               |      |
+| A'15  | ?                 |      | 3.1V
+| A'16  | ?                 | B7   | 2.45V
+| A'17  | GND               |      |
+| A'18  | ?                 |      | 1.2V
+| A'19  | ?                 |      | 2.75V
+| A'20  | GND               |      |
 
+Notes:
 * VGA/SDA: Connected to top right pin of U23
 * VGA/SCL: Connected to bottom right pin of U23
 * U23: level shifters?
@@ -105,6 +118,8 @@ Pinout is as follows:
 * [Wolfson WM8750BL](https://www.cirrus.com/products/wm8750/)
 
     Codec with Speaker Driver 
+
+    The control interface is configured to I2C (2-wire) mode, with the 8-bit address set to 0x34.
 
 * [IDT ICS307M-02LF](https://media.digikey.com/pdf/Data%20Sheets/IDT/ICS307-01,02_RevH.pdf)
 
