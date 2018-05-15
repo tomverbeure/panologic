@@ -138,7 +138,19 @@ Notes:
 
 * [Micron M25P80](http://www.micron.com/~/media/Documents/Products/Data%20Sheet/NOR%20Flash/Serial%20NOR/M25P/M25P80.pdf)
  
-    Serial Flash Embedded Memory
+    Serial Flash Embedded Memory, 8Mbit.
+
+    A non-compressed XC3S1600E bitstream needs 5,969,696 bits ([UG332](https://www.xilinx.com/support/documentation/user_guides/ug332.pdf), Table 1-4),
+    which leaves ~2Mbit (512KByte) free for other uses.
+
+    It should be possible to replace the M25P80 with a larger version, such as the 16Mbit M25P16. These parts are end-of-life and not available
+    anymore on Mouser or Digikey, but [Adesto Tech](http://www.adestotech.com/wp-content/uploads/M25P-SERIES-CONVERSION-GUIDE-08_14_1.pdf) makes
+    compatible replacements.
+
+    Useful guides:
+    * [UG332 - Spartan-3 Generation Configuration User Guide](https://www.xilinx.com/support/documentation/user_guides/ug332.pdf)
+    * [XAPP951 - Configuring Xilinx FPGAs with SPI Serial Flash](https://www.xilinx.com/support/documentation/application_notes/xapp951.pdf)
+    * [Using Serial Flash on the Xilinx Spartan-3E Starter Board](http://wwwpub.zih.tu-dresden.de/~ss17/wiki/www.mr.inf.tu-dresden.de/wiki/s3esk_serial_flash05b5.pdf?fileId=319)
 
 * [TI THS8135](http://www.ti.com/lit/ds/symlink/ths8135.pdf)
 
