@@ -37,7 +37,10 @@ Pinout is as follows:
 
 ## Board to Board Connector
 
+![Board 2 Board Connector Footprint](board2board_conn_footprint.jpg)
+
 A\* = inward facing side of the connector
+
 A'\* = outward facing side of the connector
 
 | Pin   | Function          | FPGA |
