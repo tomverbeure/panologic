@@ -141,7 +141,13 @@ Notes:
 
     10-BIT 240-MSPS VIDEO DAC
 
-* [Micron Automotive LPDDR SDRAM](http://www.micron.com/~/media/Documents/Products/Data%20Sheet/DRAM/Mobile%20DRAM/Low-Power%20DRAM/LPDDR/60-series/t67m_512mb_embedded_lpddr.pdf)
+* [Micron Mobile Low-Power DDR SDRAM MT46H8M32LFB5-6](https://www.micron.com/parts/dram/mobile-ddr-sdram/mt46h8m32lfb5-6)
+
+    Chip has 'D9FSD' marker, which is the FPBA code for MT46H8M32LFB5-6:A.
+
+    2 Meg x 32 x 4 Banks = 8M x 32-bits or 64MByte.
+
+    166MHz clock. Max BW: 2 x 166 x 32 = 10.6 Gbit/s or 1.32 GByte/s. (24bpp 1080p@60 ~ 3Gbps)
 
 * [Discussion on Hackaday](https://hackaday.com/2013/01/11/ask-hackaday-we-might-have-some-fpgas-to-hack/)
 
