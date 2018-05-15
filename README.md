@@ -127,11 +127,14 @@ Notes:
 
 * [NXT ISP1760](http://www.mouser.com/ds/2/302/ISP1760_3-197088.pdf)
 
-    Hi-Speed Universal Serial Bus host controller for embedded applications
+    Hi-Speed Universal Serial Bus host controller for embedded applications with built-in 3-port HUB. However, for some reason
+    there is a separate 3-port HUB on the board, so I assume that only one port is used. (Why?)
 
 * [SMSC USB2513](http://www.mouser.com/catalog/specsheets/2513.pdf)
 
     USB 2.0 High-Speed 3-Port Hub Controller
+
+    All 3 USB ports are connect to this controller.
 
 * [Micron M25P80](http://www.micron.com/~/media/Documents/Products/Data%20Sheet/NOR%20Flash/Serial%20NOR/M25P/M25P80.pdf)
  
@@ -141,7 +144,11 @@ Notes:
 
     10-BIT 240-MSPS VIDEO DAC
 
-* [Micron Mobile Low-Power DDR SDRAM MT46H8M32LFB5-6](https://www.micron.com/parts/dram/mobile-ddr-sdram/mt46h8m32lfb5-6)
+    Chip operates in general DAC mode. No analog SYNC pulses are generated because HSYNC and VSYNC are separate digital signals for VGA.
+
+* [Micron Mobile Low-Power DDR SDRAM MT46H8M32LFB5-6](https://www.micron.com/~/media/documents/products/data-sheet/dram/mobile-dram/low-power-dram/lpddr/30-series/t36n_256mb_mobile_lpddr_sdram.pdf)
+
+    [Product page](https://www.micron.com/parts/dram/mobile-ddr-sdram/mt46h8m32lfb5-6)
 
     Chip has 'D9FSD' marker, which is the FPBA code for MT46H8M32LFB5-6:A.
 
