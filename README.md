@@ -38,10 +38,11 @@ Pinout is as follows:
 ## Board to Board Connector
 
 A\* = inward facing side of the connector
+
 A'\* = outward facing side of the connector
 
-| Pin   | Function          | FPGA |
-|-------|-------------------|------|
+| Pin   | Function          | FPGA | Misc |
+|-------|-------------------|------|------|
 | A1    | GND               |      |
 | A2    | ?                 |      |
 | A3    | GND               |      |
@@ -55,31 +56,31 @@ A'\* = outward facing side of the connector
 | A11   | VGA HSYNC         | C2   |
 |       |                   |      |
 | A14   | GND               |      |
-| A15   | ?                 |      |
+| A15   | SMSC USB2513 USBDN2\_DP pin 4   | |
 | A16   | SMSC USB2513 USBDN2\_DM pin 3   | |
 | A17   | GND               |      |
-| A18   |                   | E5   |
+| A18   | SMSC USB2513 USBDN3\_DM pin 6   | E5   |
 | A19   | SMSC USB2513 USBDN3\_DP pin 7   | |
 | A20   | GND               |      |
 |       |                   |      |
 | A'1   | GND               |      |
-| A'2   | FPGA VCCO         | F3, K1, H7, ... |
+| A'2   | FPGA VCCO 3.3V    | F3, K1, H7, ... |
 | A'3   | GND               |      |
-| A'4   | GND               |      |
+| A'4   | ?                 |      | 1.8V | 
 | A'5   | GND               |      |
 | A'6   | VGA PWR (5V)      |      |
 | A'7   | GND               |      |
-| A'8   | ?                 | R7   |
+| A'8   | Button            | R7   | (Pressed is 3.3V) | 
 | A'9   | LED Green         | H1   |
-| A'10  | ?                 |      |
-| A'11  | ?                 |      |
+| A'10  | LED Blue          | L1   |
+| A'11  | ?                 |      | 4.8V
 |       |                   |      |
 | A'14  | GND               |      |
-| A'15  | ?                 |      |
-| A'16  | ?                 | B7   |
+| A'15  | ?                 |      | 3.1V
+| A'16  | ?                 | B7   | 2.45V
 | A'17  | GND               |      |
-| A'18  | ?                 |      |
-| A'19  | ?                 |      |
+| A'18  | ?                 |      | 1.2V
+| A'19  | ?                 |      | 2.75V
 | A'20  | GND               |      |
 
 Notes:
