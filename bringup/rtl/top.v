@@ -310,6 +310,8 @@ module pano_pins(
     //
     //============================================================
 
+    assign audio_mclk = 1'b0;
+
     // I2C interface
     assign audio_sclk = 1'bz;
     assign audio_sdin = 1'bz;
