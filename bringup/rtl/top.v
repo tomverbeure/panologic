@@ -1,19 +1,3 @@
-//
-//module top(clk, gpios, out);
-//
-//    input clk;
-//    input [200:0] gpios;
-//    output out;
-//
-//    wire [200:0] gpios;
-//    reg out;
-//
-//    always @(posedge clk)
-//        out <= |gpios;
-//
-//endmodule
-
-
 
 module pano_pins(
     input wire osc_clk,
@@ -68,6 +52,8 @@ module pano_pins(
 
     reg osc_reset_;
 
+    wire [7:0] gpio_oe, gpio_do, gpio_di;
+
 `ifndef SYNTHESIS
     initial begin
         osc_reset_ <= 1'b0;
@@ -85,8 +71,8 @@ module pano_pins(
             cntr <= 0;
     end
 
-    assign led_green = cntr[23];
-    assign led_blue  = cntr[24];
+    assign led_green = gpio_do[0];
+    assign led_blue  = gpio_do[1];
 
     //============================================================
     //
@@ -313,8 +299,41 @@ module pano_pins(
     assign audio_mclk = 1'b0;
 
     // I2C interface
-    assign audio_sclk = 1'bz;
-    assign audio_sdin = 1'bz;
+//    assign audio_sclk = 1'bz;
+//    assign audio_sdin = 1'bz;
+
+    wire i2c_scl_oe, i2c_sda_oe;
+    assign i2c_scl_oe = gpio_oe[2] && !gpio_do[2];
+    assign i2c_sda_oe = gpio_oe[3] && !gpio_do[3];
+
+    pad_inout u_audio_scl (.pad(audio_sclk), .pad_ena(i2c_scl_oe), .to_pad(1'b0), .from_pad(gpio_di[2]));
+    pad_inout u_audio_sda (.pad(audio_sdin), .pad_ena(i2c_sda_oe), .to_pad(1'b0), .from_pad(gpio_di[3]));
+
+    //============================================================
+    //
+    //
+    // SOC
+    //
+    //============================================================
+
+    wire cpu_clk, cpu_reset_;
+
+    pll u_cpu_pll(.osc_clk(osc_clk), .clk(cpu_clk) );
+    reset_gen u_cpu_reset_gen( .clk(cpu_clk), .reset_(cpu_reset_) );
+
+    soc #(
+        .LOCAL_RAM_SIZE_KB(8),
+        .NR_GPIOS(8)
+    ) 
+    u_soc (
+        .clk(cpu_clk),
+        .reset_(cpu_reset_),
+    
+        .gpio_oe(gpio_oe),
+        .gpio_do(gpio_do),
+        .gpio_di(gpio_di)
+    );
+
 
 endmodule
 
