@@ -1,12 +1,9 @@
 #include <stdint.h>
 
-#include "top_defines.h"
+#include "global.h"
+#include "i2c.h"
 
-#define GPIO_CONFIG     *((volatile uint32_t *)(0xf0000000 | GPIO_CONFIG_ADDR  ))
-#define GPIO_DOUT       *((volatile uint32_t *)(0xf0000000 | GPIO_DOUT_ADDR    ))
-#define GPIO_DIN        *((volatile uint32_t *)(0xf0000000 | GPIO_DIN_ADDR     ))
-#define GPIO_DOUT_SET   *((volatile  int32_t *)(0xf0000000 | GPIO_DOUT_SET_ADDR))
-#define GPIO_DOUT_CLR   *((volatile uint64_t *)(0xf0000000 | GPIO_DOUT_CLR_ADDR))
+#include "top_defines.h"
 
 static inline uint32_t rdcycle(void) {
     uint32_t cycle;
@@ -14,11 +11,24 @@ static inline uint32_t rdcycle(void) {
     return cycle;
 }
 
-volatile static cnt = 0;
+static volatile int cnt = 0;
 
 #define WAIT_CYCLES 200000
 
-int main() {
+i2c_ctx_t audio_i2c_ctx;
+
+void audio_init()
+{
+	audio_i2c_ctx.base_addr = 0;
+	audio_i2c_ctx.sda_pin_nr = 2;
+	audio_i2c_ctx.scl_pin_nr = 3;
+
+    i2c_init(&audio_i2c_ctx);
+}
+
+int main() 
+{
+    audio_init();
 
     GPIO_CONFIG = 0xff;
 

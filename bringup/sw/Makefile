@@ -44,7 +44,7 @@ progmem.mem: progmem.bin
 progmem.bin: progmem.elf
 	$(OBJCOPY) -O binary $< $@
 
-progmem.elf: progmem.o start.o progmem.lds Makefile
+progmem.elf: main.o start.o i2c.o progmem.lds Makefile
 	$(LD) $(LDFLAGS) -o $@ start.o progmem.o > progmem.map
 
 clean:
