@@ -1,4 +1,9 @@
 
+all: c64_font.hex screen_buffer.hex
+
+screen_buffer.hex: hello_world.rb
+	./hello_world.rb > $@
+
 c64_font.hex: c64_font.bin
 	../../misc/create_mif.rb -f hex -w 8 $< > $@
 

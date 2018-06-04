@@ -35,6 +35,10 @@ module char_gen(
 
     reg [7:0] screen_buffer[0:screen_buf_width*screen_buf_height-1];
 
+    initial begin
+        $readmemh("screen_buffer.hex", screen_buffer);
+    end
+
     wire [6:0] screen_buf_x = h_cntr >> 4;
     wire [6:0] screen_buf_y = v_cntr >> 4;
 
@@ -54,9 +58,9 @@ module char_gen(
         screen_buf_req_p1 <= screen_buf_req_p0;
 
         if (screen_buf_req_p0) begin
-            //current_char <= screen_buffer[current_char_addr];
-            current_char <= current_char_addr[7:0];
-            //current_char <= 0;
+            current_char <= screen_buffer[current_char_addr];
+            //current_char <= screen_buf_x + screen_buf_y * 16;
+            //current_char <= 129;
         end
 
         in_vsync_p1     <= in_vsync;
@@ -79,10 +83,10 @@ module char_gen(
     //  
 
     wire [10:0] bitmap_lsb_addr;
-    assign bitmap_lsb_addr = (current_char & 'h0f) + (v_cntr[3:1] << 4);
+    assign bitmap_lsb_addr = (current_char & 11'hf) + (v_cntr[3:1] << 4);
 
     wire [10:0] bitmap_msb_addr;
-    assign bitmap_msb_addr = (current_char >> 4) * 'h80;
+    assign bitmap_msb_addr = (current_char >> 4) * 11'h80;
 
     wire [10:0] bitmap_addr;
     assign bitmap_addr = bitmap_msb_addr + bitmap_lsb_addr;

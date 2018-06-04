@@ -20,7 +20,7 @@ VERILOG_TB = testbench.v
 
 DEFINES = -D JTAG_TAP_GENERIC -D USE_VEXRISCV -D VGA_TB
 
-all: progmem c64_font.hex sim
+all: progmem c64_font.hex screen_buffer.hex sim
 	./sim
 
 sim: $(VERILOG_TB) $(VERILOG) 
@@ -33,6 +33,11 @@ progmem:
 
 .PHONY: c64_font.hex
 c64_font.hex:
+	cd ../misc && make
+	cp ../misc/$@ $@
+
+.PHONY: screen_buffer.hex
+screen_buffer.hex:
 	cd ../misc && make
 	cp ../misc/$@ $@
 
