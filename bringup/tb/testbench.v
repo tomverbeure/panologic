@@ -4,15 +4,24 @@
 module testbench;
 
     reg osc_clk;
+    reg idt_clk1;
 
     pano_pins u_pano_pins(
-        .osc_clk(osc_clk)
+        .osc_clk(osc_clk),
+        .idt_clk1(idt_clk1)
     );
 
     initial begin
         osc_clk     = 0;
         forever begin
             #5 osc_clk  = ~osc_clk;
+        end
+    end
+
+    initial begin
+        idt_clk1     = 0;
+        forever begin
+            #2 idt_clk1  = ~idt_clk1;
         end
     end
 

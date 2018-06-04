@@ -1,17 +1,19 @@
 [*]
-[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Sun May 13 19:48:31 2018
+[*] GTKWave Analyzer v3.3.90 (w)1999-2018 BSI
+[*] Mon Jun  4 02:58:55 2018
 [*]
-[dumpfile] "/home/vagrant/projects/panologic/bringup/tb/waves.vcd"
-[dumpfile_mtime] "Sun May 13 19:46:38 2018"
-[dumpfile_size] 713716
-[savefile] "/home/vagrant/projects/panologic/bringup/tb/waves.gtkw"
-[timestart] 0
+[dumpfile] "/home/tom/projects/panologic/bringup/tb/waves.vcd"
+[dumpfile_mtime] "Mon Jun  4 02:57:31 2018"
+[dumpfile_size] 12822434
+[savefile] "/home/tom/projects/panologic/bringup/tb/waves.gtkw"
+[timestart] 28955000
 [size] 1266 810
 [pos] -1 -1
-*-26.437849 32025000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.968910 29155000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
-[sst_width] 224
+[treeopen] testbench.u_pano_pins.
+[treeopen] testbench.u_pano_pins.u_cursor.
+[sst_width] 360
 [signals_width] 259
 [sst_expanded] 1
 [sst_vpaned_height] 227
@@ -28,17 +30,105 @@ testbench.u_pano_pins.cntr[30:0]
 -
 @28
 testbench.u_pano_pins.vo_reset_
-@25
-testbench.u_pano_pins.line_cntr[11:0]
-testbench.u_pano_pins.col_cntr[11:0]
-@28
 testbench.u_pano_pins.vo_clk
 testbench.u_pano_pins.vo_vsync
 testbench.u_pano_pins.vo_hsync
-testbench.u_pano_pins.vo_blank
 @22
 testbench.u_pano_pins.vo_r[7:0]
 testbench.u_pano_pins.vo_g[7:0]
 testbench.u_pano_pins.vo_b[7:0]
+@200
+-
+@28
+testbench.u_pano_pins.cpu_clk
+testbench.u_pano_pins.cpu_reset_
+@200
+-
+@22
+testbench.u_pano_pins.u_soc.memory.addr[15:0]
+testbench.u_pano_pins.u_soc.memory.wr[3:0]
+testbench.u_pano_pins.u_soc.memory.wdata[31:0]
+@28
+testbench.u_pano_pins.u_soc.memory.rd
+@22
+testbench.u_pano_pins.u_soc.memory.rdata[31:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_vi_gen.vo_clk
+testbench.u_pano_pins.u_vi_gen.vo_reset_
+@22
+testbench.u_pano_pins.u_vi_gen.col_cntr[11:0]
+testbench.u_pano_pins.u_vi_gen.line_cntr[10:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_vi_gen.out_vsync
+testbench.u_pano_pins.u_vi_gen.out_req
+testbench.u_pano_pins.u_vi_gen.out_eof
+testbench.u_pano_pins.u_vi_gen.out_eol
+@22
+testbench.u_pano_pins.u_vi_gen.out_pixel[23:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_cursor.u_vid_cntr.clk
+testbench.u_pano_pins.u_cursor.u_vid_cntr.reset_
+testbench.u_pano_pins.u_cursor.u_vid_cntr.in_eof
+testbench.u_pano_pins.u_cursor.u_vid_cntr.in_eol
+testbench.u_pano_pins.u_cursor.u_vid_cntr.in_req
+testbench.u_pano_pins.u_cursor.u_vid_cntr.in_vsync
+@22
+testbench.u_pano_pins.u_cursor.u_vid_cntr.h_cntr[11:0]
+testbench.u_pano_pins.u_cursor.u_vid_cntr.v_cntr[10:0]
+@28
+testbench.u_pano_pins.u_cursor.out_eof
+testbench.u_pano_pins.u_cursor.out_eol
+@22
+testbench.u_pano_pins.u_cursor.out_pixel[23:0]
+@28
+testbench.u_pano_pins.u_cursor.out_req
+testbench.u_pano_pins.u_cursor.out_vsync
+@200
+-
+@28
+testbench.u_pano_pins.u_cursor.x_dir
+@22
+testbench.u_pano_pins.u_cursor.x_pos[11:0]
+@28
+testbench.u_pano_pins.u_cursor.y_dir
+@22
+testbench.u_pano_pins.u_cursor.y_pos[10:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_char_gen.in_req
+@22
+testbench.u_pano_pins.u_char_gen.h_cntr[11:0]
+testbench.u_pano_pins.u_char_gen.v_cntr[10:0]
+testbench.u_pano_pins.u_char_gen.screen_buf_x[6:0]
+testbench.u_pano_pins.u_char_gen.screen_buf_y[5:0]
+testbench.u_pano_pins.u_char_gen.current_char_addr[11:0]
+testbench.u_pano_pins.u_char_gen.current_char[7:0]
+@200
+-
+@22
+testbench.u_pano_pins.u_char_gen.bitmap_lsb_addr[10:0]
+testbench.u_pano_pins.u_char_gen.bitmap_msb_addr[10:0]
+testbench.u_pano_pins.u_char_gen.bitmap_addr[10:0]
+@200
+-
+@22
+testbench.u_pano_pins.u_char_gen.bitmap_byte[7:0]
+@29
+testbench.u_pano_pins.u_char_gen.bitmap_pixel
+@28
+testbench.u_pano_pins.u_char_gen.out_eof
+testbench.u_pano_pins.u_char_gen.out_eol
+@22
+testbench.u_pano_pins.u_char_gen.out_pixel[23:0]
+@28
+testbench.u_pano_pins.u_char_gen.out_req
+testbench.u_pano_pins.u_char_gen.out_vsync
 [pattern_trace] 1
 [pattern_trace] 0

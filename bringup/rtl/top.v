@@ -40,14 +40,14 @@ module pano_pins(
     input wire [3:0] sdram_dqs,
 
     output wire vo_clk,
-    output reg vo_vsync,
-    output reg vo_hsync,
-    output reg vo_blank_,
+    output wire vo_vsync,
+    output wire vo_hsync,
+    output wire vo_blank_,
     inout  wire vo_scl,
     inout  wire vo_sda,
-    output reg [7:0] vo_r,
-    output reg [7:0] vo_g,
-    output reg [7:0] vo_b
+    output wire [7:0] vo_r,
+    output wire [7:0] vo_g,
+    output wire [7:0] vo_b
 );
 
     reg osc_reset_;
@@ -80,36 +80,7 @@ module pano_pins(
     //
     //============================================================
     
-//`define VGA640X480
-`ifdef VGA640X480
-    localparam h_active = 640;
-    localparam h_fp = 16;
-    localparam h_sync = 96;
-    localparam h_bp = 48;
-    localparam h_total = h_active + h_fp + h_sync + h_bp;
-    localparam h_sync_positive = 0;
-
-    localparam v_active = 480;
-    localparam v_fp = 11;
-    localparam v_sync = 2;
-    localparam v_bp = 31;
-    localparam v_total = v_active + v_fp + v_sync + v_bp;
-    localparam v_sync_positive = 0;
-`else
-    localparam h_active = 1920;
-    localparam h_fp = 88;
-    localparam h_sync = 44;
-    localparam h_bp = 148;
-    localparam h_total = h_active + h_fp + h_sync + h_bp;
-    localparam h_sync_positive = 1;
-
-    localparam v_active = 1080;
-    localparam v_fp = 4;
-    localparam v_sync = 5;
-    localparam v_bp = 36;
-    localparam v_total = v_active + v_fp + v_sync + v_bp;
-    localparam v_sync_positive = 1;
-`endif
+`include "video_timings.v"
 
 	reg [11:0] col_cntr;
 	reg [11:0] line_cntr;
@@ -133,106 +104,106 @@ module pano_pins(
             vo_reset_ <= 1'b0;
     end
 
-	always @(posedge vo_clk) begin
+    wire        vi_gen_out_vsync;
+    wire        vi_gen_out_req;
+    wire        vi_gen_out_eol;
+    wire        vi_gen_out_eof;
+    wire [23:0] vi_gen_out_pixel;
 
-        if (col_cntr < h_total-1) begin
-            col_cntr <= col_cntr + 1;
-        end
-        else begin
-            col_cntr <= 0;
+    vi_gen u_vi_gen(
+        .vo_clk   (vo_clk),
+        .vo_reset_(vo_reset_),
 
-            if (line_cntr < v_total-1) begin
-                line_cntr <= line_cntr + 1;
-            end
-            else begin
-                line_cntr <= 0;
-            end
-        end
+        .out_vsync(vi_gen_out_vsync),
+        .out_req  (vi_gen_out_req),
+        .out_eol  (vi_gen_out_eol),
+        .out_eof  (vi_gen_out_eof),
+        .out_pixel(vi_gen_out_pixel)
+    );
 
-        if (!vo_reset_) begin
-			col_cntr <= 0;
-            line_cntr <= 0;
-        end
-	end
-    
-    wire cursor;
-    wire vo_blank;
-    assign vo_blank = (line_cntr >= v_active) || (col_cntr >= h_active);
+    wire        cursor_out_vsync;
+    wire        cursor_out_req;
+    wire        cursor_out_eol;
+    wire        cursor_out_eof;
+    wire [23:0] cursor_out_pixel;
 
-	always @(posedge vo_clk) begin
-        vo_blank_ <= !vo_blank;
-		vo_hsync  <= (col_cntr  >= (h_active + h_fp) && col_cntr  < (h_active + h_fp + h_sync)) ^ !(h_sync_positive);
-		vo_vsync  <= (line_cntr >= (v_active + v_fp) && line_cntr < (v_active + v_fp + v_sync)) ^ !(v_sync_positive);
+    cursor u_cursor(
+        .vo_clk   (vo_clk),
+        .vo_reset_(vo_reset_),
 
-		vo_r <= vo_blank ? 8'd0 : {8{cursor}} ^ {12{1'b1}};
-		vo_g <= vo_blank ? 8'd0 : {8{cursor}} ^ line_cntr << 3;
-		vo_b <= vo_blank ? 8'd0 : {8{cursor}} ^ col_cntr << 3;
-	end
+        .in_vsync(vi_gen_out_vsync),
+        .in_req  (vi_gen_out_req),
+        .in_eol  (vi_gen_out_eol),
+        .in_eof  (vi_gen_out_eof),
+        .in_pixel(vi_gen_out_pixel),
 
-    localparam x_size = 50;
-    localparam y_size = 50;
+        .out_vsync(cursor_out_vsync),
+        .out_req  (cursor_out_req),
+        .out_eol  (cursor_out_eol),
+        .out_eof  (cursor_out_eof),
+        .out_pixel(cursor_out_pixel)
+    );
 
-    reg [11:0] x_pos;
-    reg [11:0] y_pos;
-    reg x_dir;
-    reg y_dir;
+    wire        char_gen_out_vsync;
+    wire        char_gen_out_req;
+    wire        char_gen_out_eol;
+    wire        char_gen_out_eof;
+    wire [23:0] char_gen_out_pixel;
 
-    assign cursor =    (col_cntr  >= x_pos && col_cntr  < x_pos+x_size) 
-                    && (line_cntr >= y_pos && line_cntr < y_pos+y_size);
+    char_gen u_char_gen(
+        .vo_clk   (vo_clk),
+        .vo_reset_(vo_reset_),
 
-    always @(posedge vo_clk) begin
-        if (col_cntr == 0 && line_cntr == v_active) begin
-            if (x_dir == 1'b0) begin
-                if (x_pos + x_size < h_active-1) begin
-                    x_pos <= x_pos + 1;
-                end
-                else begin
-                    x_dir <= 1'b1;
-                end
-            end
-            else begin
-                if (x_pos > 0) begin
-                    x_pos <= x_pos - 1;
-                end
-                else begin
-                    x_dir <= 1'b0;
-                end
-            end
+        .in_vsync(cursor_out_vsync),
+        .in_req  (cursor_out_req),
+        .in_eol  (cursor_out_eol),
+        .in_eof  (cursor_out_eof),
+        .in_pixel(cursor_out_pixel),
 
-            if (y_dir == 1'b0) begin
-                if (y_pos + y_size < v_active-1) begin
-                    y_pos <= y_pos + 1;
-                end
-                else begin
-                    y_dir <= 1'b1;
-                end
-            end
-            else begin
-                if (y_pos > 0) begin
-                    y_pos <= y_pos - 1;
-                end
-                else begin
-                    y_dir <= 1'b0;
-                end
-            end
-        end
+        .out_vsync(char_gen_out_vsync),
+        .out_req  (char_gen_out_req),
+        .out_eol  (char_gen_out_eol),
+        .out_eof  (char_gen_out_eof),
+        .out_pixel(char_gen_out_pixel)
+    );
 
-        if (!vo_reset_) begin
-            x_pos <= 0;
-            y_pos <= 0;
-            x_dir <= 1'b0;
-            y_dir <= 1'b0;
-        end
-    end
+    vo u_vo(
+        .vo_clk   (vo_clk),
+        .vo_reset_(vo_reset_),
+
+        .in_vsync(char_gen_out_vsync),
+        .in_req  (char_gen_out_req),
+        .in_eol  (char_gen_out_eol),
+        .in_eof  (char_gen_out_eof),
+        .in_pixel(char_gen_out_pixel),
+
+        .vo_blank_(vo_blank_),
+        .vo_vsync (vo_vsync),
+        .vo_hsync (vo_hsync),
+        .vo_r     (vo_r),
+        .vo_g     (vo_g),
+        .vo_b     (vo_b)
+    );
+
+    //============================================================
+    //
+    //  SPI
+    // 
+    //============================================================
 
     assign spi_cs_ = cntr[5];
     assign spi_clk = cntr[5];
     assign spi_dq0 = cntr[5];
     assign spi_dq1 = cntr[5];
 
+    //============================================================
+    //
+    //  SDRAM
+    // 
+    //============================================================
+
     assign sdram_ck  = osc_clk;
     assign sdram_ck_ = !osc_clk;
-
 
     //============================================================
     //
