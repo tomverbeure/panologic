@@ -2,7 +2,7 @@
 XILINX_DIR = /opt/Xilinx/14.7/ISE_DS/
 XILINX_BIN = $(XILINX_DIR)/ISE/bin/lin64
 
-ise: progmem.hex
+ise: progmem.hex c64_font.hex
 	$(XILINX_BIN)/ise
 
 impact:
@@ -26,4 +26,8 @@ progmem.mem:
 progmem.hex:
 	cd ../sw/ && make
 	cp ../sw/progmem*.hex .
+
+c64_font.hex:
+	cd ../misc/ && make
+	cp ../misc/$@ $@
 
