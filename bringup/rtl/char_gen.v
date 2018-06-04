@@ -36,7 +36,7 @@ module char_gen(
     reg [7:0] screen_buffer[0:screen_buf_width*screen_buf_height-1];
 
     wire [6:0] screen_buf_x = h_cntr >> 4;
-    wire [5:0] screen_buf_y = v_cntr >> 4;
+    wire [6:0] screen_buf_y = v_cntr >> 4;
 
     wire screen_buf_req_p0;
     assign screen_buf_req_p0 = (screen_buf_x < 80) && (screen_buf_y < 25);
@@ -46,6 +46,7 @@ module char_gen(
 
     reg in_vsync_p1, in_req_p1, in_eol_p1, in_eof_p1;
     reg [23:0] in_pixel_p1;
+    reg [2:0] h_cntr_3_1_p1;
 
     reg [7:0] current_char;
     reg screen_buf_req_p1;
@@ -55,6 +56,7 @@ module char_gen(
         if (screen_buf_req_p0) begin
             //current_char <= screen_buffer[current_char_addr];
             current_char <= current_char_addr[7:0];
+            //current_char <= 0;
         end
 
         in_vsync_p1     <= in_vsync;
@@ -62,6 +64,8 @@ module char_gen(
         in_eof_p1       <= in_eof;
         in_eol_p1       <= in_eol;
         in_pixel_p1     <= in_pixel;
+
+        h_cntr_3_1_p1   <= h_cntr[3:1];
     end
 
     // Mapping:
@@ -75,7 +79,7 @@ module char_gen(
     //  
 
     wire [10:0] bitmap_lsb_addr;
-    assign bitmap_lsb_addr = ((current_char & 'h0f) * v_cntr[3:1]);
+    assign bitmap_lsb_addr = (current_char & 'h0f) + (v_cntr[3:1] << 4);
 
     wire [10:0] bitmap_msb_addr;
     assign bitmap_msb_addr = (current_char >> 4) * 'h80;
@@ -91,6 +95,7 @@ module char_gen(
 
     reg in_vsync_p2, in_req_p2, in_eol_p2, in_eof_p2;
     reg [23:0] in_pixel_p2;
+    reg [2:0] h_cntr_3_1_p2;
 
     reg [7:0] bitmap_byte;
     reg screen_buf_req_p2;
@@ -106,16 +111,18 @@ module char_gen(
         in_eof_p2       <= in_eof_p1;
         in_eol_p2       <= in_eol_p1;
         in_pixel_p2     <= in_pixel_p1;
+
+        h_cntr_3_1_p2   <= h_cntr_3_1_p1;
     end
 
     wire bitmap_pixel;
-    assign bitmap_pixel = (bitmap_byte >> h_cntr[3:1]);
+    assign bitmap_pixel = (bitmap_byte >> (7 ^ h_cntr_3_1_p2));
 
     always @(posedge vo_clk) begin
         if (screen_buf_req_p2) begin
-            out_pixel[ 7: 0] <= bitmap_pixel ? (in_pixel_p2[ 7: 2] + 128) : in_pixel_p2[ 7: 2]; 
-            out_pixel[15: 8] <= bitmap_pixel ? (in_pixel_p2[15:10] + 128) : in_pixel_p2[15:10]; 
-            out_pixel[23:16] <= bitmap_pixel ? (in_pixel_p2[23:18] + 128) : in_pixel_p2[23:18]; 
+            out_pixel[ 7: 0] <= bitmap_pixel ? 8'h7b : 8'h41;
+            out_pixel[15: 8] <= bitmap_pixel ? 8'h71 : 8'h30;
+            out_pixel[23:16] <= bitmap_pixel ? 8'hd5 : 8'ha4;
         end
         else begin
             out_pixel <= in_pixel_p2;
