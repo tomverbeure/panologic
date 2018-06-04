@@ -26,7 +26,7 @@ module vo(
             h_cntr  <= 0;
             v_cntr  <= 0;
         end
-        else if (h_cntr == h_active-1) begin
+        else if (h_cntr == h_total-1) begin
                 h_cntr  <= 0;
                 v_cntr  <= v_cntr + 1;
         end
