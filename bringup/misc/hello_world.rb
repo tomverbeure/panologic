@@ -6,12 +6,16 @@ str = "Hello World!"
 
 str.chars.each_with_index do |c, idx|
     c = c.ord
-    if c >= '@'.ord && c <= 'Z'.ord
-        c = c - '@'.ord + 128
-    elsif c >= 'a'.ord && c <= 'z'.ord
-        c = c - 'a'.ord + 1
-    elsif c == '!'.ord
-        c = 33
+
+    if nil
+        # Only run this for C64 font
+        if c >= '@'.ord && c <= 'Z'.ord
+            c = c - '@'.ord + 128
+        elsif c >= 'a'.ord && c <= 'z'.ord
+            c = c - 'a'.ord + 1
+        elsif c == '!'.ord
+            c = 33
+        end
     end
 
     screen[10*128 + 10 + idx] = c

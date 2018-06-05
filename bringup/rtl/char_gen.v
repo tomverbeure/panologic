@@ -39,8 +39,14 @@ module char_gen(
         $readmemh("screen_buffer.hex", screen_buffer);
     end
 
+    // For now, treat the 8x12 font as 8x16 to avoid a divide by 24
+`ifdef FONT8x12
+    wire [6:0] screen_buf_x = h_cntr >> 4;
+    wire [6:0] screen_buf_y = v_cntr >> 5;
+`else
     wire [6:0] screen_buf_x = h_cntr >> 4;
     wire [6:0] screen_buf_y = v_cntr >> 4;
+`endif
 
     wire screen_buf_req_p0;
     assign screen_buf_req_p0 = (screen_buf_x < 80) && (screen_buf_y < 25);
@@ -82,20 +88,29 @@ module char_gen(
     //  80  81  82  83  84  85  86  87  88  89  8a  8b  8c  8d  8e  8f
     //  
 
-    wire [10:0] bitmap_lsb_addr;
+    wire [11:0] bitmap_lsb_addr;
+    wire [11:0] bitmap_msb_addr;
+    wire [11:0] bitmap_addr;
+`ifdef FONT8x12
+    assign bitmap_lsb_addr = (current_char & 12'hf) + (v_cntr[4:1] << 4);
+    assign bitmap_msb_addr = (current_char >> 4) * 12'h100;
+
+    reg [7:0] font_bitmap[0:256*16-1];
+
+    initial begin
+        $readmemh("vga8x12_font.hex", font_bitmap);
+    end
+`else
     assign bitmap_lsb_addr = (current_char & 11'hf) + (v_cntr[3:1] << 4);
-
-    wire [10:0] bitmap_msb_addr;
     assign bitmap_msb_addr = (current_char >> 4) * 11'h80;
-
-    wire [10:0] bitmap_addr;
-    assign bitmap_addr = bitmap_msb_addr + bitmap_lsb_addr;
 
     reg [7:0] font_bitmap[0:256*8-1];
 
     initial begin
         $readmemh("c64_font.hex", font_bitmap);
     end
+`endif
+    assign bitmap_addr = bitmap_msb_addr + bitmap_lsb_addr;
 
     reg in_vsync_p2, in_req_p2, in_eol_p2, in_eof_p2;
     reg [23:0] in_pixel_p2;

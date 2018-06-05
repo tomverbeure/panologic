@@ -18,9 +18,9 @@ VERILOG = $(RTL_DIR)/top.v \
 
 VERILOG_TB = testbench.v
 
-DEFINES = -D JTAG_TAP_GENERIC -D USE_VEXRISCV -D VGA_TB
+DEFINES = -D JTAG_TAP_GENERIC -D USE_VEXRISCV -D VGA_TB -D FONT8x12
 
-all: progmem c64_font.hex screen_buffer.hex sim
+all: progmem c64_font.hex vga8x12_font.hex screen_buffer.hex sim
 	./sim
 
 sim: $(VERILOG_TB) $(VERILOG) 
@@ -31,8 +31,11 @@ progmem:
 	cd ../sw && make
 	cp ../sw/progmem*.hex .
 
-.PHONY: c64_font.hex
 c64_font.hex:
+	cd ../misc && make
+	cp ../misc/$@ $@
+
+vga8x12_font.hex:
 	cd ../misc && make
 	cp ../misc/$@ $@
 

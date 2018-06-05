@@ -1,5 +1,5 @@
 
-all: c64_font.hex screen_buffer.hex
+all: vga8x12_font.hex c64_font.hex screen_buffer.hex
 
 screen_buffer.hex: hello_world.rb
 	./hello_world.rb > $@
@@ -14,6 +14,12 @@ c64_font_lc.rgb: c64_font_lc_x1.png
 	convert $< -depth 8 -threshold 25% -depth 1 GRAY:$@
 
 c64_font_uc.rgb: c64_font_uc_x1.png
+	convert $< -depth 8 -threshold 25% -depth 1 GRAY:$@
+
+vga8x12_font.hex: vga8x12_font.rgb
+	../../misc/create_mif.rb -f hex -w 8 $< > $@
+
+vga8x12_font.rgb: vga8x12_extra_chars.png
 	convert $< -depth 8 -threshold 25% -depth 1 GRAY:$@
 
 clean:
