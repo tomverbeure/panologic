@@ -13,7 +13,16 @@ module char_gen(
     output reg          out_req,
     output reg          out_eol,
     output reg          out_eof,
-    output reg [23:0]   out_pixel
+    output reg [23:0]   out_pixel,
+
+    input wire          cpu_clk,
+    input wire          cpu_reset_,
+
+    input wire          sbuf_wr,
+    input wire          sbuf_rd,
+    input wire [11:0]   sbuf_addr,
+    input wire [7:0]    sbuf_wdata,
+    output reg [7:0]    sbuf_rdata
     );
 
     localparam screen_buf_width  = 128;
@@ -37,6 +46,11 @@ module char_gen(
 
     initial begin
         $readmemh("screen_buffer.hex", screen_buffer);
+    end
+
+    always @(posedge cpu_clk) begin
+        if (sbuf_wr)  screen_buffer[sbuf_addr] <= sbuf_wdata;
+        sbuf_rdata <= screen_buffer[sbuf_addr];
     end
 
     // For now, treat the 8x12 font as 8x16 to avoid a divide by 24

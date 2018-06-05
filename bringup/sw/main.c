@@ -28,14 +28,16 @@ void audio_init()
 
 int main() 
 {
+    SBUF[0] = 0x55;
+
     audio_init();
 
     GPIO_CONFIG = 0xff;
 
     uint32_t start;
 
-
     for (;;) {
+        SBUF[1]++;
 //        GPIO_DOUT_SET = 0x55;
 //        GPIO_DOUT_CLR = 0xaa;
 
@@ -56,5 +58,6 @@ int main()
 
 //        start = rdcycle();
 //        while ((rdcycle() - start) <= 20000000);
+
     }
 }

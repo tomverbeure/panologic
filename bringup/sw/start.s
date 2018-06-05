@@ -16,11 +16,13 @@ clear_bss:
     bne t0, t1, clear_bss
 
 clear_bss_done:
-    la sp, stack_top
+    /* set stack pointer */
+    lui sp,(8*1024)>>12
+
     call main
     j .
 
 .section bss
-.local stack_bottom
-.comm stack_bottom, 256, 16
-stack_top:
+#.local stack_bottom
+#.comm stack_bottom, 256, 16
+#stack_top:

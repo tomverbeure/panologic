@@ -50,6 +50,8 @@ module pano_pins(
     output wire [7:0] vo_b
 );
 
+    wire cpu_clk, cpu_reset_;
+
     reg osc_reset_;
 
     wire [7:0] gpio_oe, gpio_do, gpio_di;
@@ -79,7 +81,7 @@ module pano_pins(
     // VGA Test Image Generator
     //
     //============================================================
-    
+
 `include "video_timings.v"
 
 	reg [11:0] col_cntr;
@@ -150,6 +152,12 @@ module pano_pins(
     wire        char_gen_out_eof;
     wire [23:0] char_gen_out_pixel;
 
+    wire        sbuf_wr;
+    wire        sbuf_rd;
+    wire [11:0] sbuf_addr;
+    wire [7:0]  sbuf_wdata;
+    wire [7:0]  sbuf_rdata;
+
     char_gen u_char_gen(
         .vo_clk   (vo_clk),
         .vo_reset_(vo_reset_),
@@ -164,7 +172,16 @@ module pano_pins(
         .out_req  (char_gen_out_req),
         .out_eol  (char_gen_out_eol),
         .out_eof  (char_gen_out_eof),
-        .out_pixel(char_gen_out_pixel)
+        .out_pixel(char_gen_out_pixel),
+
+        .cpu_clk   (cpu_clk),
+        .cpu_reset_(cpu_reset_),
+
+        .sbuf_wr   (sbuf_wr),
+        .sbuf_rd   (sbuf_rd),
+        .sbuf_addr (sbuf_addr),
+        .sbuf_wdata(sbuf_wdata),
+        .sbuf_rdata(sbuf_rdata)
     );
 
     vo u_vo(
@@ -188,7 +205,7 @@ module pano_pins(
     //============================================================
     //
     //  SPI
-    // 
+    //
     //============================================================
 
     assign spi_cs_ = cntr[5];
@@ -199,7 +216,7 @@ module pano_pins(
     //============================================================
     //
     //  SDRAM
-    // 
+    //
     //============================================================
 
     assign sdram_ck  = osc_clk;
@@ -231,12 +248,12 @@ module pano_pins(
 
     // Create pre output-divider clock of 266MHz:
     // 50 * 2 * (8+8)/(4+2)
-    
+
     // Input: 100MHz
     // Output: 148.50MHz
     // Ratio: 49/33
     // 100 * 2 * (41+8) / (31+2) / 2
-    assign idt_r   = 7'd31;        
+    assign idt_r   = 7'd31;
     assign idt_v   = 9'd41;
 
     assign idt_s   = 3'b001;    // CLK1 output divide = 2
@@ -250,7 +267,7 @@ module pano_pins(
 
     reg [23:0] idt_config_reverse;
     integer i;
-    always @(*) 
+    always @(*)
         for(i=0;i<24;i=i+1)
             idt_config_reverse[23-i] = idt_config[i];
 
@@ -287,7 +304,6 @@ module pano_pins(
     //
     //============================================================
 
-    wire cpu_clk, cpu_reset_;
 
     pll u_cpu_pll(.osc_clk(osc_clk), .clk(cpu_clk) );
     reset_gen u_cpu_reset_gen( .clk(cpu_clk), .reset_(cpu_reset_) );
@@ -295,14 +311,20 @@ module pano_pins(
     soc #(
         .LOCAL_RAM_SIZE_KB(8),
         .NR_GPIOS(8)
-    ) 
+    )
     u_soc (
         .clk(cpu_clk),
         .reset_(cpu_reset_),
-    
+
         .gpio_oe(gpio_oe),
         .gpio_do(gpio_do),
-        .gpio_di(gpio_di)
+        .gpio_di(gpio_di),
+
+        .sbuf_wr   (sbuf_wr),
+        .sbuf_rd   (sbuf_rd),
+        .sbuf_addr (sbuf_addr),
+        .sbuf_wdata(sbuf_wdata),
+        .sbuf_rdata(sbuf_rdata)
     );
 
 

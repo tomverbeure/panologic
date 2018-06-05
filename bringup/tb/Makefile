@@ -49,4 +49,4 @@ waves:
 	gtkwave waves.gtkw &
 
 clean:
-	rm -f sim *.vcd
+	rm -f sim *.vcd *.hex

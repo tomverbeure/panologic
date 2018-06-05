@@ -9,10 +9,16 @@ module soc
     ) (
         input wire  clk,
         input wire  reset_,
-    
+
         output [NR_GPIOS-1:0]   gpio_oe,
         output [NR_GPIOS-1:0]   gpio_do,
-        input  [NR_GPIOS-1:0]   gpio_di
+        input  [NR_GPIOS-1:0]   gpio_di,
+
+        output wire             sbuf_wr,
+        output wire             sbuf_rd,
+        output wire [11:0]      sbuf_addr,
+        output wire [7:0]       sbuf_wdata,
+        input  wire [7:0]       sbuf_rdata
     );
 
     wire        mem_cmd_valid;
@@ -33,6 +39,9 @@ module soc
 
     wire mem_rsp_ready_gpio;
     wire [31:0] mem_rsp_rdata_gpio;
+
+    reg mem_rsp_ready_sbuf;
+    reg [31:0] mem_rsp_rdata_sbuf;
 
     reg mem_rsp_ready_void;
 
@@ -69,8 +78,8 @@ module soc
         if (reset_ != 1'b0) begin
             if (   (mem_cmd_valid === 1'bx)
                 || (mem_cmd_valid && mem_cmd_ready ===1'bx)
-                || (mem_cmd_valid && mem_cmd_ready && 
-                        (   mem_cmd_instr === 1'bx 
+                || (mem_cmd_valid && mem_cmd_ready &&
+                        (   mem_cmd_instr === 1'bx
                          || mem_cmd_wr === 1'bx
                          || mem_cmd_be === 1'bx
                         ))
@@ -89,24 +98,29 @@ module soc
     // Address decoder and data multiplexer
     //============================================================
 
-    wire mem_cmd_sel_local_ram, mem_cmd_sel_gpio, mem_cmd_sel_void;
-    reg mem_cmd_sel_local_ram_reg, mem_cmd_sel_gpio_reg, mem_cmd_sel_void_reg;
+    wire mem_cmd_sel_local_ram, mem_cmd_sel_gpio, mem_cmd_sel_sbuf, mem_cmd_sel_void;
+    reg mem_cmd_sel_local_ram_reg, mem_cmd_sel_gpio_reg, mem_cmd_sel_sbuf_reg, mem_cmd_sel_void_reg;
 
-    assign mem_cmd_sel_local_ram = mem_cmd_addr < (LOCAL_RAM_SIZE_KB * 1024);
-    assign mem_cmd_sel_gpio      = mem_cmd_addr[31:16] == 20'hf000;
-    assign mem_cmd_sel_void     = !mem_cmd_sel_local_ram && !mem_cmd_sel_gpio; 
+    assign mem_cmd_sel_local_ram    = mem_cmd_addr < (LOCAL_RAM_SIZE_KB * 1024);
+    assign mem_cmd_sel_gpio         = mem_cmd_addr[31:16] == 20'hf000;
+    assign mem_cmd_sel_sbuf         = mem_cmd_addr[31:16] == 20'hf001;
+    assign mem_cmd_sel_void         =    !mem_cmd_sel_local_ram
+                                      && !mem_cmd_sel_gpio
+                                      && !mem_cmd_sel_sbuf;
 
     always @(posedge clk) begin
 
         if (mem_cmd_valid) begin
             mem_cmd_sel_local_ram_reg <= mem_cmd_sel_local_ram;
             mem_cmd_sel_gpio_reg      <= mem_cmd_sel_gpio;
+            mem_cmd_sel_sbuf_reg      <= mem_cmd_sel_sbuf;
             mem_cmd_sel_void_reg      <= mem_cmd_sel_void;
         end
 
         if (!reset_) begin
             mem_cmd_sel_local_ram_reg <= 1'b0;
             mem_cmd_sel_gpio_reg      <= 1'b0;
+            mem_cmd_sel_sbuf_reg      <= 1'b0;
             mem_cmd_sel_void_reg      <= 1'b0;
         end
     end
@@ -114,12 +128,14 @@ module soc
     // For now, we don't have any slaves that can stall a write
     assign mem_cmd_ready    = 1'b1;
 
-    assign mem_rsp_rdata = mem_cmd_sel_local_ram_reg ? mem_rsp_rdata_local_ram   : 
-                           mem_cmd_sel_gpio_reg      ? mem_rsp_rdata_gpio        : 
+    assign mem_rsp_rdata = mem_cmd_sel_local_ram_reg ? mem_rsp_rdata_local_ram   :
+                           mem_cmd_sel_gpio_reg      ? mem_rsp_rdata_gpio        :
+                           mem_cmd_sel_sbuf_reg      ? mem_rsp_rdata_sbuf        :
                                                        32'd0;
 
     assign mem_rsp_ready = mem_cmd_sel_local_ram_reg ? mem_rsp_ready_local_ram   :
                            mem_cmd_sel_gpio_reg      ? mem_rsp_ready_gpio        :
+                           mem_cmd_sel_sbuf_reg      ? mem_rsp_ready_sbuf        :
                                                        mem_rsp_ready_void;
 
     always @(posedge clk) begin
@@ -133,7 +149,7 @@ module soc
     //============================================================
     // LOCAL RAM
     //============================================================
-  
+
     wire [31:0] local_ram_rdata;
 
     reg mem_rsp_ready_local_ram_p1;
@@ -150,7 +166,7 @@ module soc
         end
     end
 
-    wire [3:0] local_ram_wr; 
+    wire [3:0] local_ram_wr;
     wire local_ram_rd;
     assign local_ram_wr = (mem_cmd_valid && mem_cmd_sel_local_ram &&  mem_cmd_wr) ? mem_cmd_be : 4'b0;
     assign local_ram_rd = (mem_cmd_valid && mem_cmd_sel_local_ram && !mem_cmd_wr);
@@ -188,6 +204,29 @@ module soc
         .gpio_di(gpio_di)
     );
 
+    //============================================================
+    // SBUF
+    //============================================================
+
+    reg mem_rsp_ready_sbuf_p1;
+
+    assign sbuf_addr  = mem_cmd_addr[13:2];
+    assign sbuf_wdata = mem_cmd_wdata[7:0];
+
+    always @(posedge clk) begin
+        mem_rsp_ready_sbuf_p1 <= mem_cmd_valid & !mem_cmd_wr & mem_cmd_sel_sbuf;
+        mem_rsp_ready_sbuf    <= mem_rsp_ready_sbuf_p1;
+
+        mem_rsp_rdata_sbuf    <= { 24'd0, sbuf_rdata };
+
+        if (!reset_) begin
+            mem_rsp_ready_sbuf     <= 1'b0;
+            mem_rsp_ready_sbuf_p1  <= 1'b0;
+        end
+    end
+
+    assign sbuf_wr = (mem_cmd_valid && mem_cmd_sel_sbuf &&  mem_cmd_wr) ? mem_cmd_be[0] : 1'b0;
+    assign sbuf_rd = (mem_cmd_valid && mem_cmd_sel_sbuf && !mem_cmd_wr);
 
 endmodule
 
