@@ -2,6 +2,7 @@
 
 #include "global.h"
 #include "i2c.h"
+#include "print.h"
 
 #include "top_defines.h"
 
@@ -29,6 +30,8 @@ void audio_init()
 int main() 
 {
     SBUF[0] = 0x55;
+    print("Yo de manne!\n");
+    print("Wij doen de gas branne!\n");
 
     audio_init();
 
@@ -36,7 +39,13 @@ int main()
 
     uint32_t start;
 
+    int cntr = 0;
+
     for (;;) {
+        print("counter: ");
+        print_int(cntr, 1);
+        print("\n");
+
         SBUF[1]++;
 //        GPIO_DOUT_SET = 0x55;
 //        GPIO_DOUT_CLR = 0xaa;
@@ -59,5 +68,6 @@ int main()
 //        start = rdcycle();
 //        while ((rdcycle() - start) <= 20000000);
 
+        ++cntr;
     }
 }
