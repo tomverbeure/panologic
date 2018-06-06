@@ -6,9 +6,16 @@ module testbench;
     reg osc_clk;
     reg idt_clk1;
 
+    wire audio_sclk, audio_sdin;
+
+    pullup(audio_sclk);
+    pullup(audio_sdin);
+
     pano_pins u_pano_pins(
         .osc_clk(osc_clk),
-        .idt_clk1(idt_clk1)
+        .idt_clk1(idt_clk1),
+        .audio_sclk(audio_sclk),
+        .audio_sdin(audio_sdin)
     );
 
     initial begin
@@ -30,7 +37,7 @@ module testbench;
         $dumpfile("waves.vcd");
         $dumpvars(0, testbench);
 
-        repeat(10000) @(posedge osc_clk);
+        repeat(50000) @(posedge osc_clk);
         $display("%t: Simulation complete...", $time);
         $finish;
     end
