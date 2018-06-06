@@ -304,6 +304,8 @@ module pano_pins(
     //
     //============================================================
 
+    assign gpio_di[1:0] = 0;
+    assign gpio_di[7:4] = 0;
 
     pll u_cpu_pll(.osc_clk(osc_clk), .clk(cpu_clk) );
     reset_gen u_cpu_reset_gen( .clk(cpu_clk), .reset_(cpu_reset_) );
