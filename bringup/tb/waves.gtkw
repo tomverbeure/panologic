@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.90 (w)1999-2018 BSI
-[*] Tue Jun  5 05:50:25 2018
+[*] Wed Jun  6 03:13:30 2018
 [*]
 [dumpfile] "/home/tom/projects/panologic/bringup/tb/waves.vcd"
-[dumpfile_mtime] "Tue Jun  5 05:50:01 2018"
-[dumpfile_size] 15049363
+[dumpfile_mtime] "Wed Jun  6 03:10:10 2018"
+[dumpfile_size] 4341857
 [savefile] "/home/tom/projects/panologic/bringup/tb/waves.gtkw"
-[timestart] 3593000
+[timestart] 28089600
 [size] 1855 1056
 [pos] -1 -1
-*-18.014698 3910000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-16.087950 28415500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [treeopen] testbench.u_pano_pins.
 [treeopen] testbench.u_pano_pins.u_cursor.
@@ -145,7 +145,36 @@ testbench.u_pano_pins.u_char_gen.out_pixel[23:0]
 @28
 testbench.u_pano_pins.u_char_gen.out_req
 testbench.u_pano_pins.u_char_gen.out_vsync
-@201
+@200
 -
+@28
+testbench.u_pano_pins.u_soc.sbuf_wr
+@22
+testbench.u_pano_pins.u_soc.sbuf_addr[11:0]
+@28
+testbench.u_pano_pins.u_soc.sbuf_rd
+@821
+testbench.u_pano_pins.u_soc.sbuf_wdata[7:0]
+@22
+testbench.u_pano_pins.u_soc.sbuf_rdata[7:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.mem_cmd_valid
+testbench.u_pano_pins.u_soc.mem_cmd_wr
+testbench.u_pano_pins.u_soc.mem_cmd_ready
+@22
+testbench.u_pano_pins.u_soc.mem_cmd_addr[31:0]
+testbench.u_pano_pins.u_soc.mem_cmd_wdata[31:0]
+@28
+testbench.u_pano_pins.u_soc.mem_rsp_ready
+@22
+testbench.u_pano_pins.u_soc.mem_rsp_rdata[31:0]
+@28
+testbench.u_pano_pins.u_soc.mem_cmd_sel_gpio
+testbench.u_pano_pins.u_soc.mem_cmd_sel_local_ram
+testbench.u_pano_pins.u_soc.mem_cmd_sel_sbuf
+testbench.u_pano_pins.u_soc.mem_cmd_sel_void
+testbench.u_pano_pins.u_soc.mem_rsp_ready
 [pattern_trace] 1
 [pattern_trace] 0
