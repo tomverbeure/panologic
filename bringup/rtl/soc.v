@@ -78,6 +78,7 @@ module soc
         if (reset_ != 1'b0) begin
             if (   (mem_cmd_valid === 1'bx)
                 || (mem_cmd_valid && mem_cmd_ready ===1'bx)
+                || (mem_cmd_valid && mem_cmd_wr && (^mem_cmd_addr === 1'bx || ^mem_cmd_wdata === 1'bx) )
                 || (mem_cmd_valid && mem_cmd_ready &&
                         (   mem_cmd_instr === 1'bx
                          || mem_cmd_wr === 1'bx
@@ -88,6 +89,8 @@ module soc
                 )
             begin
                 $display("%t: %m has X on cpu bus. Aborting.", $time);
+                @(posedge clk);
+                @(posedge clk);
                 $finish;
             end
         end

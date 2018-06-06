@@ -61,13 +61,19 @@ module vexriscv_wrapper(
     reg mem_rsp_pending_instr;
 
     always @(posedge clk) begin
-        if (mem_cmd_valid && !mem_cmd_wr) begin
+        if (mem_rsp_pending) begin
+            if (mem_rsp_ready) begin
+                mem_rsp_pending         <= 1'b0;
+
+                if (mem_cmd_valid && !mem_cmd_wr) begin
+                    mem_rsp_pending         <= 1'b1;
+                    mem_rsp_pending_instr   <= mem_cmd_instr;
+                end
+            end
+        end
+        else if (mem_cmd_valid && !mem_cmd_wr) begin
             mem_rsp_pending         <= 1'b1;
             mem_rsp_pending_instr   <= mem_cmd_instr;
-        end
-
-        if (mem_rsp_ready) begin
-            mem_rsp_pending         <= 1'b0;
         end
 
         if (!reset_) begin
