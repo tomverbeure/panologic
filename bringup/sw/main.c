@@ -31,16 +31,12 @@ int main()
 {
     int result;
 
+
     audio_init();
 
     GPIO_CONFIG = 0xff;
 
-
     for(int i=2;i<256; i+=1){
-//        i2c_start(&audio_i2c_ctx);
-//        result = i2c_tx(&audio_i2c_ctx, i);
-//        i2c_stop(&audio_i2c_ctx);
-
         result = i2c_write_reg(&audio_i2c_ctx, i, 0, 0);
 
         print_byte(i, 1);
@@ -48,11 +44,10 @@ int main()
         print_byte(result, 1);
         print(";  ");
 
-//        if (result) while (1);
+        if (result) while (1);
     }
 
     print("Yo de manne!\n");
-
 
     uint32_t start;
 
