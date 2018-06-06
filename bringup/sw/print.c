@@ -44,6 +44,19 @@ void print(char *str)
 
 char hex_digits[] = "0123456789abcdef";
 
+void print_byte(unsigned char value, int hex)
+{
+    char buf[16] = "\0";
+    if (hex) {
+        for(int i=1;i>=0;--i){
+            buf[1-i] = hex_digits[((value >> (i*4))&0xf)];
+        }
+        buf[8] = '\0';
+    }
+
+    print(buf);
+}
+
 void print_int(int value, int hex)
 {
     char buf[16] = "\0";

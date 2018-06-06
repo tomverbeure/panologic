@@ -73,7 +73,7 @@ void i2c_stop(i2c_ctx_t *ctx)
 unsigned char i2c_rx(i2c_ctx_t *ctx, char ack)
 {
     char x, d=0;
-    i2c_set_sda(ctx, 1); 
+    i2c_set_sda(ctx, 1);
 
     for(x=0; x<8; x++) {
         d <<= 1;
@@ -81,15 +81,15 @@ unsigned char i2c_rx(i2c_ctx_t *ctx, char ack)
         i2c_set_scl(ctx, 1);
         i2c_dly();
         // wait for any i2c_set_scl clock stretching
-        while(i2c_get_scl(ctx)==0);    
+        while(i2c_get_scl(ctx)==0);
 
         d |= i2c_get_sda(ctx);
         i2c_set_scl(ctx, 0);
         i2c_dly();
-    } 
-    if(ack) 
+    }
+    if(ack)
         i2c_set_sda(ctx, 0);
-    else 
+    else
         i2c_set_sda(ctx, 1);
 
     i2c_set_scl(ctx, 1);
@@ -106,26 +106,34 @@ unsigned char i2c_rx(i2c_ctx_t *ctx, char ack)
 int i2c_tx(i2c_ctx_t *ctx, unsigned char d)
 {
     char x;
-    static int b;
     for(x=8; x; x--) {
         i2c_set_sda(ctx, (d & 0x80)>>7);
         d <<= 1;
-
+        i2c_dly();
         i2c_set_scl(ctx, 1);
         i2c_dly();
         i2c_set_scl(ctx, 0);
-        i2c_dly(); 
     }
+    i2c_dly();
     i2c_set_sda(ctx, 1);
+    i2c_dly();
     i2c_set_scl(ctx, 1);
     i2c_dly();
 
-    b = !i2c_get_sda(ctx);          // possible ACK bit
+    int bit = i2c_get_sda(ctx);         // possible ACK bit
+#if 0
+    if (bit){
+        GPIO_DOUT_SET = 1;
+    }
+    else {
+        GPIO_DOUT_CLR = 1;
+    }
+#endif
 
     i2c_set_scl(ctx, 0);
     i2c_dly();
 
-    return b;
+    return !bit;
 }
 
 int i2c_write_buf(i2c_ctx_t *ctx, byte addr, byte* data, int len)
@@ -134,14 +142,19 @@ int i2c_write_buf(i2c_ctx_t *ctx, byte addr, byte* data, int len)
 
     i2c_start(ctx);
     ack = i2c_tx(ctx, addr);
-    if (!ack)
+    if (!ack){
+        i2c_stop(ctx);
         return 0;
+    }
+
 
     int i;
     for(i=0;i<len;++i){
         ack = i2c_tx(ctx, data[i]);
-        if (!ack)
+        if (!ack){
+            i2c_stop(ctx);
             return 0;
+        }
     }
 
     i2c_stop(ctx);
@@ -153,17 +166,19 @@ int i2c_read_buf(i2c_ctx_t *ctx, byte addr, byte *data, int len)
 {
     int ack;
 
-    i2c_start(ctx);            
+    i2c_start(ctx);
 
-    ack = i2c_tx(ctx, addr | 1);          
-    if (!ack)
+    ack = i2c_tx(ctx, addr | 1);
+    if (!ack){
+        i2c_stop(ctx);
         return 0;
+    }
 
     int i;
     for(i=0;i<len;++i){
         data[i] = i2c_rx(ctx, i!=len-1);
     }
-    i2c_stop(ctx);               
+    i2c_stop(ctx);
 
     return 1;
 }
@@ -187,18 +202,24 @@ int i2c_write_regs(i2c_ctx_t *ctx, byte addr, byte reg_nr, byte *values, int len
     i2c_start(ctx);
 
     ack = i2c_tx(ctx, addr);
-    if (!ack)
+    if (!ack){
+        i2c_stop(ctx);
         return 0;
+    }
 
     ack = i2c_tx(ctx, reg_nr);
-    if (!ack)
+    if (!ack){
+        i2c_stop(ctx);
         return 0;
+    }
 
     int i;
     for(i=0;i<len;++i){
         ack = i2c_tx(ctx, values[i]);
-        if (!ack)
+        if (!ack){
+            i2c_stop(ctx);
             return 0;
+        }
     }
 
     i2c_stop(ctx);

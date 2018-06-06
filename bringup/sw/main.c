@@ -21,25 +21,44 @@ i2c_ctx_t audio_i2c_ctx;
 void audio_init()
 {
 	audio_i2c_ctx.base_addr = 0;
-	audio_i2c_ctx.sda_pin_nr = 2;
-	audio_i2c_ctx.scl_pin_nr = 3;
+	audio_i2c_ctx.scl_pin_nr = 2;
+	audio_i2c_ctx.sda_pin_nr = 3;
 
     i2c_init(&audio_i2c_ctx);
 }
 
 int main() 
 {
-    SBUF[0] = 0x55;
-    print("Yo de manne!\n");
-    print("Wij doen de gas branne!\n");
+    int result;
 
     audio_init();
 
     GPIO_CONFIG = 0xff;
 
+
+    for(int i=2;i<256; i+=1){
+//        i2c_start(&audio_i2c_ctx);
+//        result = i2c_tx(&audio_i2c_ctx, i);
+//        i2c_stop(&audio_i2c_ctx);
+
+        result = i2c_write_reg(&audio_i2c_ctx, i, 0, 0);
+
+        print_byte(i, 1);
+        print(" ");
+        print_byte(result, 1);
+        print(";  ");
+
+//        if (result) while (1);
+    }
+
+    print("Yo de manne!\n");
+
+
     uint32_t start;
 
     int cntr = 0;
+
+    while(1);
 
     for (;;) {
         print("counter: ");
