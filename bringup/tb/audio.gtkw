@@ -1,0 +1,86 @@
+[*]
+[*] GTKWave Analyzer v3.3.90 (w)1999-2018 BSI
+[*] Wed Jun  6 05:01:03 2018
+[*]
+[dumpfile] "/home/tom/projects/panologic/bringup/tb/waves.vcd"
+[dumpfile_mtime] "Wed Jun  6 04:59:49 2018"
+[dumpfile_size] 14525533
+[savefile] "/home/tom/projects/panologic/bringup/tb/audio.gtkw"
+[timestart] 0
+[size] 1855 1056
+[pos] -1 -1
+*-24.386471 4111000 28375000 3335000 5769000 5769000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.u_pano_pins.
+[treeopen] testbench.u_pano_pins.u_cursor.
+[treeopen] testbench.u_pano_pins.u_soc.
+[treeopen] testbench.u_pano_pins.u_soc.cpu.
+[sst_width] 360
+[signals_width] 297
+[sst_expanded] 1
+[sst_vpaned_height] 311
+@28
+testbench.u_pano_pins.osc_clk
+testbench.u_pano_pins.osc_reset_
+testbench.u_pano_pins.idt_data
+testbench.u_pano_pins.idt_sclk
+testbench.u_pano_pins.idt_strobe
+@22
+testbench.u_pano_pins.idt_cntr[6:0]
+testbench.u_pano_pins.cntr[30:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.mem_cmd_valid
+testbench.u_pano_pins.u_soc.mem_cmd_ready
+testbench.u_pano_pins.u_soc.mem_cmd_wr
+@22
+testbench.u_pano_pins.u_soc.mem_cmd_addr[31:0]
+testbench.u_pano_pins.u_soc.mem_cmd_wdata[31:0]
+@28
+testbench.u_pano_pins.u_soc.mem_rsp_ready
+@22
+testbench.u_pano_pins.u_soc.mem_rsp_rdata[31:0]
+@28
+testbench.u_pano_pins.u_soc.mem_cmd_sel_gpio
+testbench.u_pano_pins.u_soc.mem_cmd_sel_local_ram
+testbench.u_pano_pins.u_soc.mem_cmd_sel_sbuf
+testbench.u_pano_pins.u_soc.mem_cmd_sel_void
+testbench.u_pano_pins.u_soc.mem_rsp_ready
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.memory.rd
+@22
+testbench.u_pano_pins.u_soc.mem_cmd_addr[31:0]
+testbench.u_pano_pins.u_soc.memory.addr[15:0]
+testbench.u_pano_pins.u_soc.memory.rdata[31:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.cpu.iBus_cmd_valid
+testbench.u_pano_pins.u_soc.cpu.iBus_cmd_ready
+@22
+testbench.u_pano_pins.u_soc.cpu.iBus_cmd_payload_pc[31:0]
+@28
+testbench.u_pano_pins.u_soc.cpu.iBus_rsp_ready
+@22
+testbench.u_pano_pins.u_soc.cpu.iBus_rsp_inst[31:0]
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.cpu.dBus_cmd_valid
+testbench.u_pano_pins.u_soc.cpu.dBus_cmd_ready
+testbench.u_pano_pins.u_soc.cpu.dBus_cmd_payload_wr
+@200
+-
+@28
+testbench.u_pano_pins.u_soc.cpu.mem_rsp_pending
+testbench.u_pano_pins.u_soc.cpu.mem_rsp_pending_instr
+@200
+-
+@28
+testbench.u_pano_pins.audio_sclk
+testbench.u_pano_pins.audio_sdin
+[pattern_trace] 1
+[pattern_trace] 0
