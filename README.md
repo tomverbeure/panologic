@@ -133,7 +133,7 @@ Notes:
 
     Programmable clock source
 
-* [NXT ISP1760](http://www.mouser.com/ds/2/302/ISP1760_3-197088.pdf)
+* [NXP ISP1760](http://www.mouser.com/ds/2/302/ISP1760_3-197088.pdf)
 
     Hi-Speed Universal Serial Bus host controller for embedded applications with built-in 3-port HUB. However, for some reason
     there is a separate 3-port HUB on the board, so I assume that only one port is used. (Why?)
