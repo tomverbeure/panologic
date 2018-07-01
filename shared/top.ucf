@@ -224,6 +224,8 @@ NET "usb_d[2]"      LOC = T15  | IOSTANDARD = LVCMOS33;       # Pin 39
 NET "usb_d[1]"      LOC = U5   | IOSTANDARD = LVCMOS33;       # Pin 38
 NET "usb_d[0]"      LOC = V6   | IOSTANDARD = LVCMOS33;       # Pin 37
 
+NET "usb_clkin"     LOC = K6   | IOSTANDARD = LVCMOS33;       # Pin 13
+
 #============================================================
 # Board to Board Connector
 #============================================================
