@@ -389,8 +389,8 @@
     <!-- Do not hand-edit this section, as it will be overwritten when the    -->
     <!-- project is analyzed based on files automatically identified as       -->
     <!-- include files.                                                       -->
-    <file xil_pn:name="../rtl/top_defines.vh" xil_pn:type="FILE_VERILOG"/>
     <file xil_pn:name="../rtl/video_timings.v" xil_pn:type="FILE_VERILOG"/>
+    <file xil_pn:name="../rtl/top_defines.vh" xil_pn:type="FILE_VERILOG"/>
   </autoManagedFiles>
 
 </project>

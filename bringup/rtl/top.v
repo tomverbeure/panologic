@@ -47,7 +47,16 @@ module pano_pins(
     inout  wire vo_sda,
     output wire [7:0] vo_r,
     output wire [7:0] vo_g,
-    output wire [7:0] vo_b
+    output wire [7:0] vo_b,
+
+    output wire usb_clkin,
+    output wire usb_reset_n,
+    output wire usb_cs_,
+    output wire usb_rd_,
+    output wire usb_wr_,
+    input  wire usb_irq,
+    output wire [17:1] usb_a,
+    inout  wire [15:0] usb_d
 );
 
     wire cpu_clk, cpu_reset_;
@@ -279,7 +288,6 @@ module pano_pins(
 
     //============================================================
     //
-    //
     // AUDIO
     //
     //============================================================
@@ -299,6 +307,19 @@ module pano_pins(
 
     //============================================================
     //
+    // USB
+    //
+    //============================================================
+
+    assign usb_clkin    = 1'b0;
+    assign usb_reset_n  = 1'b0;
+    assign usb_cs_      = 1'b1;
+    assign usb_rd_      = 1'b1;
+    assign usb_wr_      = 1'b1;
+    assign usb_a        = 17'd0;
+    assign usb_d        = {16{1'bz}};
+
+    //============================================================
     //
     // SOC
     //
