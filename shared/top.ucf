@@ -181,10 +181,11 @@ NET "vo_b[0]" LOC = A6  | IOSTANDARD = LVCMOS33;    # B2
 NET "usb_cs_"       LOC = R12  | IOSTANDARD = LVCMOS33;       # Pin 106
 NET "usb_rd_"       LOC = T12  | IOSTANDARD = LVCMOS33;       # Pin 107
 NET "usb_wr_"       LOC = P12  | IOSTANDARD = LVCMOS33;       # Pin 108
+#NET "usb_bat_on_n"  LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 110. Not connected? 
 NET "usb_irq"       LOC = U14  | IOSTANDARD = LVCMOS33;       # Pin 112
-#NET "usb_dreq"      LOC = xx   | IOSTANDARD = LVCMOS33;      # Pin 114 Not connected?
-#NET "usb_dack"      LOC = xx   | IOSTANDARD = LVCMOS33;      # Pin 116 Not connected?
-#NET "usb_suspend"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 119 Not connected?
+#NET "usb_dreq"      LOC = xx   | IOSTANDARD = LVCMOS33;      # Pin 114. Not connected.
+#NET "usb_dack"      LOC = xx   | IOSTANDARD = LVCMOS33;      # Pin 116. Not connected. Pulled up to VCC.
+#NET "usb_suspend"   LOC = xx  | IOSTANDARD = LVCMOS33;       # Pin 119. Not connected?
 NET "usb_reset_n"   LOC = P11  | IOSTANDARD = LVCMOS33;       # Pin 122
 
 NET "usb_a[17]"     LOC = P9   | IOSTANDARD = LVCMOS33;       # Pin 105
