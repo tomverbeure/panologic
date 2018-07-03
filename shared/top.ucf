@@ -227,6 +227,19 @@ NET "usb_d[0]"      LOC = V6   |IOSTANDARD = LVCMOS33;       # Pin 37
 NET "usb_clkin"     LOC = K6   |IOSTANDARD = LVCMOS33;       # Pin 13
 
 #============================================================
+# USB Hub - SMSC USB2513
+#============================================================
+
+#NET "uhub_sda"      LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 22, pulldown down?
+#NET "uhub_scl"      LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 24
+NET "uhub_reset_n"  LOC = H4   |IOSTANDARD = LVCMOS33;       # Pin 26
+#NET "uhub_non_rem0" LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 28
+NET "uhub_clkin"    LOC = L2   |IOSTANDARD = LVCMOS33;       # Pin 33, 24MHz
+
+NET "uhub_cfg_sel0" LOC = H2   |IOSTANDARD = LVCMOS33;       # Pin 24, 10k pulldown?
+NET "uhub_cfg_sel1" LOC = H5   |IOSTANDARD = LVCMOS33;       # Pin 25, 10k pulldown, HS_IND
+
+#============================================================
 # Board to Board Connector
 #============================================================
 #NET "b2b_a[18]"  LOC = E5  |IOSTANDARD = LVCMOS33;          # B2B A[18]
