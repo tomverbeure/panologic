@@ -240,6 +240,37 @@ NET "uhub_cfg_sel0" LOC = H2   |IOSTANDARD = LVCMOS33;       # Pin 24, 10k pulld
 NET "uhub_cfg_sel1" LOC = H5   |IOSTANDARD = LVCMOS33;       # Pin 25, 10k pulldown, HS_IND
 
 #============================================================
+# Ethernet PHY - Micrel KSZ8721BL
+#============================================================
+
+NET "eth_mdio"      LOC = M5   |IOSTANDARD = LVCMOS33;       # Pin 1
+NET "eth_mdc"       LOC = T2   |IOSTANDARD = LVCMOS33;       # Pin 2
+NET "eth_rxd[3]"    LOC = K7   |IOSTANDARD = LVCMOS33;       # Pin 3
+NET "eth_rxd[2]"    LOC = M1   |IOSTANDARD = LVCMOS33;       # Pin 4
+NET "eth_rxd[1]"    LOC = N1   |IOSTANDARD = LVCMOS33;       # Pin 5
+NET "eth_rxd[0]"    LOC = N2   |IOSTANDARD = LVCMOS33;       # Pin 6
+NET "eth_rxdv"      LOC = R1   |IOSTANDARD = LVCMOS33;       # Pin 9
+NET "eth_rxc"       LOC = K4   |IOSTANDARD = LVCMOS33;       # Pin 10
+NET "eth_rxer"      LOC = U1   |IOSTANDARD = LVCMOS33;       # Pin 11
+NET "eth_txer"      LOC = R2   |IOSTANDARD = LVCMOS33;       # Pin 14
+#NET "eth_txc"       LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 15, not connected?
+NET "eth_txen"      LOC = R3   |IOSTANDARD = LVCMOS33;       # Pin 16
+NET "eth_txd[0]"    LOC = P4   |IOSTANDARD = LVCMOS33;       # Pin 17
+NET "eth_txd[1]"    LOC = P1   |IOSTANDARD = LVCMOS33;       # Pin 18
+NET "eth_txd[2]"    LOC = P2   |IOSTANDARD = LVCMOS33;       # Pin 19
+NET "eth_txd[3]"    LOC = P3   |IOSTANDARD = LVCMOS33;       # Pin 20
+NET "eth_col"       LOC = N5   |IOSTANDARD = LVCMOS33;       # Pin 21
+NET "eth_crs"       LOC = N4   |IOSTANDARD = LVCMOS33;       # Pin 22
+NET "eth_int_"      LOC = T1   |IOSTANDARD = LVCMOS33;       # Pin 25
+NET "eth_led[0]"    LOC = K2   |IOSTANDARD = LVCMOS33;       # Pin 26
+#NET "eth_led[1]"    LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 27
+#NET "eth_led[2]"    LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 28
+#NET "eth_led[3]"    LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 29
+#NET "eth_pd_"       LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 30
+#NET "eth_fxsd"      LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 34
+#NET "eth_rst_"      LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 48, goes to RC circuit
+
+#============================================================
 # Board to Board Connector
 #============================================================
 #NET "b2b_a[18]"  LOC = E5  |IOSTANDARD = LVCMOS33;          # B2B A[18]
