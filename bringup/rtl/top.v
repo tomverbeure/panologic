@@ -60,6 +60,7 @@ module pano_pins(
 );
 
     wire cpu_clk, cpu_reset_;
+    wire clk12;
 
     reg osc_reset_;
 
@@ -292,12 +293,9 @@ module pano_pins(
     //
     //============================================================
 
-    assign audio_mclk = 1'b0;
+    assign audio_mclk = clk12;
 
     // I2C interface
-//    assign audio_sclk = 1'bz;
-//    assign audio_sdin = 1'bz;
-
     wire i2c_scl_oe, i2c_sda_oe;
     assign i2c_scl_oe = gpio_oe[2] && !gpio_do[2];
     assign i2c_sda_oe = gpio_oe[3] && !gpio_do[3];
@@ -349,6 +347,43 @@ module pano_pins(
         .sbuf_wdata(sbuf_wdata),
         .sbuf_rdata(sbuf_rdata)
     );
+
+    //============================================================
+    //
+    // DCM - 12MHz clock
+    //
+    //============================================================
+
+`ifndef SYNTHESIS
+    clkgen12 u_clkgen12(
+        .clk(clk12)
+    );
+`else
+    DCM_SP #(
+      // 100 / 25 * 3 = 12MHz
+      .CLKFX_DIVIDE(25),   
+      .CLKFX_MULTIPLY(3), 
+      .CLKIN_DIVIDE_BY_2("FALSE"),          // TRUE/FALSE to enable CLKIN divide by two feature
+      .CLKIN_PERIOD(10.0),                  // 100MHz input
+      .CLK_FEEDBACK("NONE"),                // NONE when using DFS-only mode
+
+      .CLKOUT_PHASE_SHIFT("NONE"),      
+      .CLKDV_DIVIDE(2.0),
+      .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), // SOURCE_SYNCHRONOUS, SYSTEM_SYNCHRONOUS or an integer from 0 to 15
+      .DLL_FREQUENCY_MODE("LOW"),           // HIGH or LOW frequency mode for DLL
+      .DUTY_CYCLE_CORRECTION("TRUE"),       // Duty cycle correction, TRUE or FALSE
+      .PHASE_SHIFT(0),                      // Amount of fixed phase shift from -255 to 255
+      .STARTUP_WAIT("FALSE")                // Delay configuration DONE until DCM LOCK, TRUE/FALSE
+   ) u_clkgen12 (
+      .CLKIN(osc_clk),                      // Clock input (from IBUFG, BUFG or DCM)
+      .CLKFX(clk12),                        // DCM CLK synthesis out (M/D)
+      .CLKFB(1'b0),                         // DCM clock feedback
+      .PSCLK(1'b0),                         // Dynamic phase adjust clock input
+      .PSEN(1'b0),                          // Dynamic phase adjust enable input
+      .PSINCDEC(1'b0),                      // Dynamic phase adjust increment/decrement
+      .RST(!osc_reset_)                     // DCM asynchronous reset input
+   );
+`endif
 
 
 endmodule
