@@ -7,6 +7,7 @@ VERILOG = $(RTL_DIR)/top.v \
 		$(RTL_DIR)/cursor.v \
 		$(RTL_DIR)/char_gen.v \
 		$(RTL_DIR)/vo.v \
+		$(RTL_DIR)/audio.v \
 		$(RTL_DIR)/gpio.v \
 		$(RTL_DIR)/local_ram.v \
 		$(RTL_DIR)/pads_generic.v \

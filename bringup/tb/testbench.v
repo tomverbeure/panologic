@@ -37,7 +37,7 @@ module testbench;
         $dumpfile("waves.vcd");
         $dumpvars(0, testbench);
 
-        repeat(50000) @(posedge osc_clk);
+        repeat(100000) @(posedge osc_clk);
         $display("%t: Simulation complete...", $time);
         $finish;
     end

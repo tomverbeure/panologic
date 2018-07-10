@@ -18,11 +18,11 @@ module pano_pins(
     output wire spi_dq1,
 
     output wire audio_mclk,
-    input  wire audio_bclk,
-    input  wire audio_dacdat,
-    input  wire audio_daclrc,
+    output wire audio_bclk,
+    output wire audio_dacdat,
+    output wire audio_daclrc,
     input  wire audio_adcdat,
-    input  wire audio_adclrc,
+    output wire audio_adclrc,
 
     output wire audio_sclk,
     inout  wire audio_sdin,
@@ -60,7 +60,7 @@ module pano_pins(
 );
 
     wire cpu_clk, cpu_reset_;
-    wire clk12;
+    wire clk12, reset12_;
 
     reg osc_reset_;
 
@@ -293,8 +293,6 @@ module pano_pins(
     //
     //============================================================
 
-    assign audio_mclk = clk12;
-
     // I2C interface
     wire i2c_scl_oe, i2c_sda_oe;
     assign i2c_scl_oe = gpio_oe[2] && !gpio_do[2];
@@ -302,6 +300,18 @@ module pano_pins(
 
     pad_inout u_audio_scl (.pad(audio_sclk), .pad_ena(i2c_scl_oe), .to_pad(1'b0), .from_pad(gpio_di[2]));
     pad_inout u_audio_sda (.pad(audio_sdin), .pad_ena(i2c_sda_oe), .to_pad(1'b0), .from_pad(gpio_di[3]));
+
+    audio u_audio(
+        .clk12(clk12),
+        .reset12_(reset12_),
+
+        .audio_mclk(audio_mclk),
+        .audio_bclk(audio_bclk),
+        .audio_dacdat(audio_dacdat),
+        .audio_daclrc(audio_daclrc),
+        .audio_adcdat(audio_adcdat),
+        .audio_adclrc(audio_adclrc)
+    );
 
     //============================================================
     //
@@ -385,6 +395,7 @@ module pano_pins(
    );
 `endif
 
+    reset_gen u_clk12_reset_gen( .clk(clk12), .reset_(reset12_) );
 
 endmodule
 
