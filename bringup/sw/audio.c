@@ -11,13 +11,22 @@ short int audio_registers[][2] = {
 //    { WM8750_LOUT1_VOL_ADDR,            -1 },
 //    { WM8750_ROUT1_VOL_ADDR,            -1 },
 
+    { WM8750_LOUT1_VOL_ADDR,            (0<<8) |    // LO2VU    : Don't update LOUT1 volume yet
+                                        (0<<7) |    // LO2ZC    : Change gain on zero cross only
+                                     (0x7f<<0) },   // LOUT2VOL : Volume...
+
+    { WM8750_ROUT1_VOL_ADDR,            (1<<8) |    // RO2VU    : Update LOUT1 and ROUT1 volume 
+                                        (0<<7) |    // RO2ZC    : Change gain on zero cross only
+                                     (0x7f<<0) },   // ROUT2VOL : Volume...
+
+
     // Disable digital soft mute, no de-emphasis
     { WM8750_ADC_DAC_CTRL_ADDR,         (0<<3) |    // DACMU: Disable digital soft mute
                                         (0<<1) },   // DEEMP: No de-emphasis
 
-    // DSP Mode, mode B, LRP=0, Slave (Figure 23), 16 bits
+    // DSP Mode, mode B, LRP=1, Slave (Figure 23), 16 bits
     { WM8750_AUDIO_INTFC_ADDR,          (0<<7) |    // BCLKINV: BCLK not inverted
-                                        (1<<6) |    // MS     : Master mode
+                                        (0<<6) |    // MS     : Master mode
                                         (0<<5) |    // LRSWAP : No L/R swap
                                         (1<<4) |    // LRP    : DSP mode B: MSB on first clock cycle
                                         (0<<2) |    // WL     : 16 bits
@@ -30,9 +39,9 @@ short int audio_registers[][2] = {
                                         (1<<0) },   // USB    : 12MHz USB clock mode 
     // Set left and right channel volume
     { WM8750_LCHAN_VOL_ADDR,            (0<<8) |    // LDVU   : No left DAC volume update
-                                        (0x80) },   // LDACVOL: Set output volume to middle
+                                        (0xa0) },   // LDACVOL: Set output volume to middle
     { WM8750_RCHAN_VOL_ADDR,            (1<<8) |    // RDVU   : Update left and right DAC volume
-                                        (0x80) },   // RDACVOL: Set output volume to middle
+                                        (0xa0) },   // RDACVOL: Set output volume to middle
 
     // Bass control
     { WM8750_BASS_CTRL_ADDR,            (0<<7) |    // BB  : Linear bass control
@@ -76,8 +85,10 @@ short int audio_registers[][2] = {
 
     { WM8750_PWR_MANAGEMENT2_ADDR,      (1<<8) |    // DACL : DAC Left
                                         (1<<7) |    // DACR : DAC Right
-                                        (0<<6) |    // LOUT1: Disable for now
-                                        (0<<5) |    // ROUT1: Disable for now
+//                                        (0<<6) |    // LOUT1: Disable for now
+//                                        (0<<5) |    // ROUT1: Disable for now
+                                        (1<<6) |    // LOUT1: Disable for now
+                                        (1<<5) |    // ROUT1: Disable for now
                                         (1<<4) |    // LOUT2: Speaker is on
                                         (1<<3) |    // ROUT2: Speaker is on
                                         (0<<2) |    // MONO : Mono output is not used
@@ -113,13 +124,13 @@ short int audio_registers[][2] = {
     { WM8750_MONO_MIXER_CTRL2_ADDR,     0 },
 
     // LOUT2/ROUT2 configuration for mono
-    { WM8750_LOUT2_VOL_ADDR,            (0<<8) |    // LO2VU    : Don't update LOUT2 volume yet
-                                        (1<<7) |    // LO2ZC    : Change gain on zero cross only
-                                     (0x39<<0) },   // LOUT2VOL : Volume...
+    { WM8750_LOUT2_VOL_ADDR,            (1<<8) |    // LO2VU    : Don't update LOUT2 volume yet
+                                        (0<<7) |    // LO2ZC    : Change gain on zero cross only
+                                     (0x80<<0) },   // LOUT2VOL : Volume...
 
     { WM8750_ROUT2_VOL_ADDR,            (1<<8) |    // RO2VU    : Update LOUT2 and ROUT2 volume 
-                                        (1<<7) |    // RO2ZC    : Change gain on zero cross only
-                                     (0x39<<0) },   // ROUT2VOL : Volume...
+                                        (0<<7) |    // RO2ZC    : Change gain on zero cross only
+                                     (0x80<<0) },   // ROUT2VOL : Volume...
 
     // Mono output isn't used
     { WM8750_MONOOUT_VOL_ADDR,          0 },
