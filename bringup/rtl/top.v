@@ -256,21 +256,100 @@ module pano_pins(
     wire       idt_ttl;
     wire [1:0] idt_c;
 
-    // Create pre output-divider clock of 266MHz:
-    // 50 * 2 * (8+8)/(4+2)
+    // PLL Ratio Calculator:
+    // http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm 
 
+`ifdef VGA640X480
     // Input: 100MHz
-    // Output: 148.50MHz
-    // Ratio: 49/33
-    // 100 * 2 * (41+8) / (31+2) / 2
-    assign idt_r   = 7'd31;
-    assign idt_v   = 9'd41;
+    // Output: 25.175
+    // Ratio: 10/40
+    // 100 * 2 * (2+8) / (38+2) / 2
+    assign idt_v   = 9'd2;
+    assign idt_r   = 7'd38;
 
     assign idt_s   = 3'b001;    // CLK1 output divide = 2
 
     assign idt_f   = 2'b10;     // CLK2 = OFF
     assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
     assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
+`ifdef VGA800X600
+    // Input: 100MHz
+    // Output: 40MHz
+    // Ratio: 20/50
+    // 100 * 2 * (12+8) / (48+2) / 2
+    assign idt_v   = 9'd12;
+    assign idt_r   = 7'd48;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
+
+`ifdef VGA1024X768
+    // Input: 100MHz
+    // Output: 65MHz
+    // Ratio: 13/20
+    // 100 * 2 * (5+8) / (18+2) / 2
+    assign idt_v   = 9'd5;
+    assign idt_r   = 7'd18;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
+`ifdef VGA1440X900
+    // Input: 100MHz
+    // Output: 106.47MHz
+    // Ratio: 33/31
+    // 100 * 2 * (25+8) / (29+2) / 2
+    assign idt_v   = 9'd25;
+    assign idt_r   = 7'd29;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
+`ifdef VGA1680X1050
+    // Input: 100MHz
+    // Output: 147.14MHz
+    // Ratio: 103/70
+    // 100 * 2 * (95+8) / (68+2) / 2
+    assign idt_v   = 9'd95;
+    assign idt_r   = 7'd68;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
+
+`ifdef VGA1080P
+    // Input: 100MHz
+    // Output: 148.50MHz
+    // Ratio: 49/33
+    // 100 * 2 * (41+8) / (31+2) / 2
+    assign idt_v   = 9'd41;
+    assign idt_r   = 7'd31;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
 
     wire [23:0] idt_config;
     assign idt_config = { idt_c, idt_ttl, idt_f, idt_s, idt_v, idt_r };

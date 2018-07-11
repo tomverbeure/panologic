@@ -27,6 +27,63 @@
     localparam v_sync_positive = 0;
 `endif
 
+`ifdef VGA800X600
+    localparam h_active = 800;
+    localparam h_fp = 40;
+    localparam h_sync = 128;
+    localparam h_bp = 88;
+    localparam h_sync_positive = 1;
+
+    localparam v_active = 600;
+    localparam v_fp = 1;
+    localparam v_sync = 4;
+    localparam v_bp = 23;
+    localparam v_sync_positive = 1;
+`endif
+
+
+`ifdef VGA1024X768
+    localparam h_active = 1024;
+    localparam h_fp = 24;
+    localparam h_sync = 136;
+    localparam h_bp = 160;
+    localparam h_sync_positive = 0;
+
+    localparam v_active = 768;
+    localparam v_fp = 3;
+    localparam v_sync = 6;
+    localparam v_bp = 29;
+    localparam v_sync_positive = 0;
+`endif
+
+`ifdef VGA1440X900
+    localparam h_active = 1440;
+    localparam h_fp = 80;
+    localparam h_sync = 152;
+    localparam h_bp = 232;
+    localparam h_sync_positive = 0;
+
+    localparam v_active = 900;
+    localparam v_fp = 1;
+    localparam v_sync = 3;
+    localparam v_bp = 28;
+    localparam v_sync_positive = 1;
+`endif
+
+`ifdef VGA1680X1050
+    localparam h_active = 1680;
+    localparam h_fp = 104;
+    localparam h_sync = 184;
+    localparam h_bp = 288;
+    localparam h_sync_positive = 0;
+
+    localparam v_active = 1050;
+    localparam v_fp = 1;
+    localparam v_sync = 3;
+    localparam v_bp = 33;
+    localparam v_sync_positive = 1;
+`endif
+
 `ifdef VGA1080P
     localparam h_active = 1920;
     localparam h_fp = 88;
