@@ -3,11 +3,11 @@ module pano_pins(
     input wire osc_clk,
 
     output wire idt_iclk,
-    input wire  idt_clk1,
+    input  wire idt_clk1,
 
-    output wire idt_sclk,
-    output wire idt_strobe,
-    output wire idt_data,
+    output reg idt_sclk,
+    output reg idt_strobe,
+    output reg idt_data,
 
     output wire led_green,
     output wire led_blue,
@@ -97,12 +97,7 @@ module pano_pins(
 	reg [11:0] col_cntr;
 	reg [11:0] line_cntr;
 
-`ifdef VGA640X480
-    // osc_clk = 100MHz, so use 25MHz for standard 640x480 @ 60
-    assign vo_clk = cntr[1];
-`else
     assign vo_clk = idt_clk1;
-`endif
 
     assign vo_scl = 1'bz;
     assign vo_sda = 1'bz;
@@ -259,6 +254,18 @@ module pano_pins(
     // PLL Ratio Calculator:
     // http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm 
 
+`ifdef VGA_TB
+    // Value don't matter...
+    assign idt_v   = 9'd2;
+    assign idt_r   = 7'd38;
+
+    assign idt_s   = 3'b001;    // CLK1 output divide = 2
+
+    assign idt_f   = 2'b10;     // CLK2 = OFF
+    assign idt_ttl = 1'b1;      // Measure duty cycles at VDD/2
+    assign idt_c   = 2'b00;     // Use clock as ref instead of Xtal
+`endif
+
 `ifdef VGA640X480
     // Input: 100MHz
     // Output: 25.175
@@ -360,9 +367,18 @@ module pano_pins(
         for(i=0;i<24;i=i+1)
             idt_config_reverse[23-i] = idt_config[i];
 
-    assign idt_sclk = (idt_cntr < 48) & idt_cntr[0];
-    assign idt_data = idt_cntr < 48 ? idt_config_reverse[idt_cntr[5:1]] : 1'b0;
-    assign idt_strobe = idt_cntr[5:1] == 31;
+    always @(posedge osc_clk or negedge osc_reset_) 
+    begin
+        idt_sclk    <= (idt_cntr < 48) & idt_cntr[0];
+        idt_data    <= idt_cntr < 48 ? idt_config_reverse[idt_cntr[5:1]] : 1'b0;
+        idt_strobe  <= idt_cntr[5:1] == 31;
+
+        if (!osc_reset_) begin
+            idt_sclk    <= 1'b0;
+            idt_data    <= 1'b0;
+            idt_strobe  <= 1'b0;
+        end
+    end
 
     assign idt_iclk = osc_clk;
 
