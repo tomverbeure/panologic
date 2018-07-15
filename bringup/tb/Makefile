@@ -13,6 +13,7 @@ VERILOG = $(RTL_DIR)/top.v \
 		$(RTL_DIR)/pads_generic.v \
 		$(RTL_DIR)/pll_div4.v \
 		$(RTL_DIR)/clkgen12.v \
+		$(RTL_DIR)/idt_clkgen.v \
 		$(RTL_DIR)/reset_gen.v \
 		$(RTL_DIR)/soc.v \
 		$(RTL_DIR)/VexRiscv_FullNoMmuNoCacheNoCsrNoDbg.v \
