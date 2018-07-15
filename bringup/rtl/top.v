@@ -277,13 +277,7 @@ module pano_pins(
     //
     //============================================================
 
-    assign usb_clkin    = 1'b0;
-    assign usb_reset_n  = 1'b0;
-    assign usb_cs_      = 1'b1;
-    assign usb_rd_      = 1'b1;
-    assign usb_wr_      = 1'b1;
-    assign usb_a        = 17'd0;
-    assign usb_d        = {16{1'bz}};
+    assign usb_clkin    = clk12;
 
     //============================================================
     //
@@ -313,7 +307,16 @@ module pano_pins(
         .sbuf_rd   (sbuf_rd),
         .sbuf_addr (sbuf_addr),
         .sbuf_wdata(sbuf_wdata),
-        .sbuf_rdata(sbuf_rdata)
+        .sbuf_rdata(sbuf_rdata),
+
+        .usb_reset_ (usb_reset_n),
+        .usb_cs_    (usb_cs_),
+        .usb_wr_    (usb_wr_),
+        .usb_rd_    (usb_rd_),
+        .usb_a      (usb_a),
+        .usb_d      (usb_d),
+        .usb_irq    (usb_irq)
+
     );
 
     //============================================================

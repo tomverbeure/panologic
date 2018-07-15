@@ -18,7 +18,15 @@ module soc
         output wire             sbuf_rd,
         output wire [11:0]      sbuf_addr,
         output wire [7:0]       sbuf_wdata,
-        input  wire [7:0]       sbuf_rdata
+        input  wire [7:0]       sbuf_rdata,
+
+        output wire             usb_reset_,
+        output wire             usb_cs_,
+        output wire             usb_wr_,
+        output wire             usb_rd_,
+        output wire [17:1]      usb_a,
+        inout  wire [15:0]      usb_d,
+        input  wire             usb_irq
     );
 
     wire        mem_cmd_valid;
@@ -230,6 +238,17 @@ module soc
 
     assign sbuf_wr = (mem_cmd_valid && mem_cmd_sel_sbuf &&  mem_cmd_wr) ? mem_cmd_be[0] : 1'b0;
     assign sbuf_rd = (mem_cmd_valid && mem_cmd_sel_sbuf && !mem_cmd_wr);
+
+    //============================================================
+    // USB
+    //============================================================
+
+    assign usb_reset_   = 1'b0;
+    assign usb_cs_      = 1'b1;
+    assign usb_rd_      = 1'b1;
+    assign usb_wr_      = 1'b1;
+    assign usb_a        = 17'd0;
+    assign usb_d        = {16{1'bz}};
 
 endmodule
 
