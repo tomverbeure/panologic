@@ -11,9 +11,12 @@ OBJCOPY         = $(TARGET)-objcopy
 OBJDUMP         = $(TARGET)-objdump
 MISC            = ../../misc/
 
+INCLUDE_FILES   = audio.h global.h i2c.h print.h top_defines.h
+
 #include boards/$(BOARD).mk
 
 .PHONY: all clean syntax time stat flash
+
 
 all: progmem.dis progmem.bin progmem0.coe progmem0.mif progmem0.hex progmem.mem
 
@@ -44,7 +47,7 @@ progmem.mem: progmem.bin
 progmem.bin: progmem.elf
 	$(OBJCOPY) -O binary $< $@
 
-progmem.elf: main.o start.o i2c.o audio.o print.o *.h progmem.lds Makefile
+progmem.elf: main.o start.o i2c.o audio.o print.o progmem.lds Makefile
 	$(LD) $(LDFLAGS) -o $@ start.o i2c.o audio.o print.o main.o > progmem.map
 
 clean:

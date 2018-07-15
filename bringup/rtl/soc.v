@@ -51,6 +51,9 @@ module soc
     reg mem_rsp_ready_sbuf;
     reg [31:0] mem_rsp_rdata_sbuf;
 
+    reg mem_rsp_ready_usb;
+    reg [31:0] mem_rsp_rdata_usb;
+
     reg mem_rsp_ready_void;
 
 
@@ -109,15 +112,17 @@ module soc
     // Address decoder and data multiplexer
     //============================================================
 
-    wire mem_cmd_sel_local_ram, mem_cmd_sel_gpio, mem_cmd_sel_sbuf, mem_cmd_sel_void;
-    reg mem_cmd_sel_local_ram_reg, mem_cmd_sel_gpio_reg, mem_cmd_sel_sbuf_reg, mem_cmd_sel_void_reg;
+    wire mem_cmd_sel_local_ram, mem_cmd_sel_gpio, mem_cmd_sel_sbuf, mem_cmd_sel_usb, mem_cmd_sel_void;
+    reg mem_cmd_sel_local_ram_reg, mem_cmd_sel_gpio_reg, mem_cmd_sel_sbuf_reg, mem_cmd_sel_usb_reg, mem_cmd_sel_void_reg;
 
     assign mem_cmd_sel_local_ram    = mem_cmd_addr < (LOCAL_RAM_SIZE_KB * 1024);
-    assign mem_cmd_sel_gpio         = mem_cmd_addr[31:16] == 20'hf000;
-    assign mem_cmd_sel_sbuf         = mem_cmd_addr[31:16] == 20'hf001;
+    assign mem_cmd_sel_gpio         = mem_cmd_addr[31:20] == 12'hf00;
+    assign mem_cmd_sel_sbuf         = mem_cmd_addr[31:20] == 12'hf01;
+    assign mem_cmd_sel_usb          = mem_cmd_addr[31:20] == 12'hf02;
     assign mem_cmd_sel_void         =    !mem_cmd_sel_local_ram
                                       && !mem_cmd_sel_gpio
-                                      && !mem_cmd_sel_sbuf;
+                                      && !mem_cmd_sel_sbuf
+                                      && !mem_cmd_sel_usb;
 
     always @(posedge clk) begin
 
@@ -125,6 +130,7 @@ module soc
             mem_cmd_sel_local_ram_reg <= mem_cmd_sel_local_ram;
             mem_cmd_sel_gpio_reg      <= mem_cmd_sel_gpio;
             mem_cmd_sel_sbuf_reg      <= mem_cmd_sel_sbuf;
+            mem_cmd_sel_usb_reg       <= mem_cmd_sel_usb;
             mem_cmd_sel_void_reg      <= mem_cmd_sel_void;
         end
 
@@ -132,6 +138,7 @@ module soc
             mem_cmd_sel_local_ram_reg <= 1'b0;
             mem_cmd_sel_gpio_reg      <= 1'b0;
             mem_cmd_sel_sbuf_reg      <= 1'b0;
+            mem_cmd_sel_usb_reg       <= 1'b0;
             mem_cmd_sel_void_reg      <= 1'b0;
         end
     end
@@ -142,11 +149,13 @@ module soc
     assign mem_rsp_rdata = mem_cmd_sel_local_ram_reg ? mem_rsp_rdata_local_ram   :
                            mem_cmd_sel_gpio_reg      ? mem_rsp_rdata_gpio        :
                            mem_cmd_sel_sbuf_reg      ? mem_rsp_rdata_sbuf        :
+                           mem_cmd_sel_usb_reg       ? mem_rsp_rdata_usb         :
                                                        32'd0;
 
     assign mem_rsp_ready = mem_cmd_sel_local_ram_reg ? mem_rsp_ready_local_ram   :
                            mem_cmd_sel_gpio_reg      ? mem_rsp_ready_gpio        :
                            mem_cmd_sel_sbuf_reg      ? mem_rsp_ready_sbuf        :
+                           mem_cmd_sel_usb_reg       ? mem_rsp_ready_usb         :
                                                        mem_rsp_ready_void;
 
     always @(posedge clk) begin
@@ -243,12 +252,20 @@ module soc
     // USB
     //============================================================
 
-    assign usb_reset_   = 1'b0;
+    assign usb_reset_   = 1'b1;
     assign usb_cs_      = 1'b1;
     assign usb_rd_      = 1'b1;
     assign usb_wr_      = 1'b1;
     assign usb_a        = 17'd0;
     assign usb_d        = {16{1'bz}};
 
+    always @*
+    begin
+        mem_rsp_ready_usb = 1'b1;
+        mem_rsp_rdata_usb = 32'hdeadbeef;
+    end
+
 endmodule
+
+
 

@@ -12,6 +12,7 @@ typedef unsigned char byte;
 #define GPIO_DOUT_SET   *((volatile  int32_t *)(0xf0000000 | GPIO_DOUT_SET_ADDR))
 #define GPIO_DOUT_CLR   *((volatile uint32_t *)(0xf0000000 | GPIO_DOUT_CLR_ADDR))
 
-#define SBUF            ((volatile uint32_t *)(0xf0010000))
+
+#define SBUF            ((volatile uint32_t *)(0xf0100000))
 
 #endif
