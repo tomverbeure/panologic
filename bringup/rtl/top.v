@@ -459,17 +459,28 @@ module pano_pins(
     //
     //============================================================
 
+    // Use clk50 instead of osc_clk as input to DCM: one way or the other, using
+    // osc_clk as input to a DCM *really* messes up idt_clk1.
+    reg clk50;
+    always @(posedge osc_clk) begin
+        clk50 <= ~clk50;
+
+        if (!osc_reset_) begin
+            clk50 <= 1'b0;
+        end
+    end
+
 `ifndef SYNTHESIS
     clkgen12 u_clkgen12(
         .clk(clk12)
     );
 `else
     DCM_SP #(
-      // 100 / 25 * 3 = 12MHz
+      // 50 / 25 * 3 = 12MHz
       .CLKFX_DIVIDE(25),   
-      .CLKFX_MULTIPLY(3), 
+      .CLKFX_MULTIPLY(6),
       .CLKIN_DIVIDE_BY_2("FALSE"),          // TRUE/FALSE to enable CLKIN divide by two feature
-      .CLKIN_PERIOD(10.0),                  // 100MHz input
+      .CLKIN_PERIOD(20.0),                  // 50MHz input
       .CLK_FEEDBACK("NONE"),                // NONE when using DFS-only mode
 
       .CLKOUT_PHASE_SHIFT("NONE"),      
@@ -480,7 +491,7 @@ module pano_pins(
       .PHASE_SHIFT(0),                      // Amount of fixed phase shift from -255 to 255
       .STARTUP_WAIT("FALSE")                // Delay configuration DONE until DCM LOCK, TRUE/FALSE
    ) u_clkgen12 (
-      .CLKIN(osc_clk),                      // Clock input (from IBUFG, BUFG or DCM)
+      .CLKIN(clk50),                        // Clock input (from IBUFG, BUFG or DCM)
       .CLKFX(clk12),                        // DCM CLK synthesis out (M/D)
       .CLKFB(1'b0),                         // DCM clock feedback
       .PSCLK(1'b0),                         // Dynamic phase adjust clock input
