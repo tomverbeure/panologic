@@ -25,7 +25,7 @@ DEFINES = -D JTAG_TAP_GENERIC -D USE_VEXRISCV -D VGA_TB -D FONT8x12
 all: progmem c64_font.hex vga8x12_font.hex screen_buffer.hex sim
 	./sim
 
-sim: $(VERILOG_TB) $(VERILOG) 
+sim: $(VERILOG_TB) $(VERILOG) $(RTL_DIR)/video_timings.v
 	iverilog $(DEFINES) -I $(RTL_DIR) $(VERILOG_TB) $(VERILOG) -o $@
 
 .PHONY: progmem
