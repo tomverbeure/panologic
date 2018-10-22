@@ -176,6 +176,10 @@ Notes:
 
     166MHz clock. Max BW: 2 x 166 x 32 = 10.6 Gbit/s or 1.32 GByte/s. (24bpp 1080p@60 ~ 3Gbps)
 
+    The Xilinx ISE MIG tool only supports 8x and 16x regular DDR, not 32x LPDDR. So it looks like a custom DDR controller must be used for that?
+
+    [This Micron document](https://www.micron.com/~/media/documents/products/technical-note/dram/tn4615.pdf) describes the differences between DDR and LPDDR.
+
 * [Discussion on Hackaday](https://hackaday.com/2013/01/11/ask-hackaday-we-might-have-some-fpgas-to-hack/)
 
     Includes JTAG pin connector layout 
