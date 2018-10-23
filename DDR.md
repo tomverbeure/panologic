@@ -1,3 +1,4 @@
+# DDR Information and Resources
 
 * [The Love/Hate Relationship with DDR SDRAM Controllers](https://www.design-reuse.com/articles/13805/the-love-hate-relationship-with-ddr-sdram-controllers.html)
 
