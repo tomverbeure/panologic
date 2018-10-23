@@ -178,7 +178,7 @@ Notes:
 
     The Xilinx ISE MIG tool only supports 8x and 16x regular DDR, not 32x LPDDR. So it looks like a custom DDR controller must be used for that?
 
-    [This Micron document](https://www.micron.com/~/media/documents/products/technical-note/dram/tn4615.pdf) describes the differences between DDR and LPDDR.
+    Information regarding DDR has been gathered [here](DDR.md).
 
 * [Discussion on Hackaday](https://hackaday.com/2013/01/11/ask-hackaday-we-might-have-some-fpgas-to-hack/)
 
