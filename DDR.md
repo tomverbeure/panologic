@@ -33,6 +33,10 @@
 
     Describes the low level cells that can be used in an Spartan-3 design. For example, a RAM64X1S cell or a MULT18X18S cell. 
 
+* [Xilinx - XAPP485 - 1:7 Deserialization in Spartan-3E/3A FPGAs at Speeds Up to 666 Mbps](https://www.xilinx.com/support/documentation/application_notes/xapp485.pdf)
+
+    Not directly related to DDR, but it shows how you can design an LVDS interface with a DCM phase shifter to get the right data.
+
 ## Micron
 
 * [Micron TN4615 - Low-Power Versus Standard DDR SDRAM](https://www.micron.com/~/media/documents/products/technical-note/dram/tn4615.pdf)
