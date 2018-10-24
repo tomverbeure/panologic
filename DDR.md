@@ -6,6 +6,10 @@
 
 * [Micron TN4615 - Low-Power Versus Standard DDR SDRAM](https://www.micron.com/~/media/documents/products/technical-note/dram/tn4615.pdf)
 
+* [Micron TN0454 - High Speed DRAM Controller Design](https://www.micron.com/~/media/documents/products/technical-note/dram-modules/tn0454.pdf)
+
+    Convers tons of aspects about how to design DRAM controllers.
+
 * [UG331 - Spartan-3 Generation FPGA User Guide](https://www.xilinx.com/support/documentation/user_guides/ug331.pdf)
 
     Information about [DCMs](https://www.xilinx.com/support/documentation/user_guides/ug331.pdf#page=65&zoom=100,0,194), 
@@ -42,4 +46,25 @@
 
     There needs to be logic to compensate for this. (This logic has nothing to do with adding a 90 degree delay to DQS to capture the data at the
     receive side.)
+
+* [Xilinx - Synthesizable 400 Mb/s DDR SDRAM Controller](https://www.cs.york.ac.uk/rts/docs/Xilinx-datasource-2003-q1/appnotes/xapp253.pdf#page=9)
+
+    Contains detailed DCM implementation details for a Virtex-2 FPGA, which should be pretty similar to Spartan-3E.
+
+* [Xilinx - System Interface Timing Parameters](https://www.xilinx.com/support/documentation/application_notes/xapp259.pdf#page=12)
+
+    Talks about analysis of source synchronous interfaces such as DDR.
+
+* [Xilinx - DDR SDRAM Controller Using Virtex-5 FPGA Devices - Read Data Capture Timing Calibration](https://www.xilinx.com/support/documentation/application_notes/xapp851.pdf#page=9)
+
+    How to transfer data from DQ capture flops to internal clock domain.
+
+* [Synchronous DRAM Architectures, Organizations, and Alternative Technologies](https://eng.umd.edu/~blj/CS-590.26/references/DRAM-Systems.pdf)
+
+    Overview of different DRAM architectures. Definitely dated (2002) but talks about DLLs etc.
+
+* [Hynix DDR3 SDRAM Device Operation](https://www.skhynix.com/product/filedata/fileDownload.do?seq=2385)
+
+    Really interesting documentation with lot of detail about DDR3 operation. See page 25 of info about DLL-off operation, which is essentially the same as
+    LPDDR operation.
 
