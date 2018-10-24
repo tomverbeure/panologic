@@ -1,0 +1,660 @@
+##############################################################################################################
+##
+##  Xilinx, Inc. 2018            www.xilinx.com  
+##  Tue Oct 23 19:40:05 2018
+##
+##  
+##############################################################################################################
+##  File name :       ddr_ctrl.ucf
+## 
+##  Description :     Constraints file
+##                    targetted to FPGA:      xc3s1600efg320
+##                    Speed Grade:            -5
+##                    FPGA family:            spartan3e
+##                    Design Entry:           verilog
+##                    Synthesis tool          ISE
+##                    Time Period:            6024 ps 
+##                    Data width:             16
+##                    Memory:                 DDR_SDRAM/Components/MT46V64M16XX-5B
+##                    Design:                 with Test bench
+##                    DCM Used:               Enabled
+##                    Data Mask:              Enabled
+##
+##############################################################################################################
+
+##############################################################################################################
+## Clock constraints                                                        
+##############################################################################################################
+NET "infrastructure_top0/sys_clk_ibuf" TNM_NET = "SYS_CLK";
+TIMESPEC "TS_SYS_CLK" = PERIOD "SYS_CLK"  6.024000  ns HIGH 50 %;
+##############################################################################################################
+
+##############################################################################################################
+## These paths are constrained to get rid of unconstrained paths.
+##############################################################################################################
+NET "infrastructure_top0/clk_dcm0/clk" TNM_NET = "clk0";
+NET "main_00/top0/data_path0/dqs_delayed_col*" TNM_NET = "dqs_clk";
+TIMESPEC "TS_CLK" = FROM "clk0" TO "dqs_clk"  18 ns DATAPATHONLY;
+
+NET "infrastructure_top0/clk_dcm0/clk90" TNM_NET = "clk90";
+TIMESPEC "TS_CLK90" = FROM "dqs_clk" TO "clk90" 18 ns DATAPATHONLY;
+
+NET "main_00/top0/data_path0/data_read_controller0/gen_wr_en*fifo*_wr_en_inst/clk"
+TNM_NET = "fifo_we_clk"; 
+TIMESPEC "TS_WE_CLK" = FROM "dqs_clk" TO "fifo_we_clk"  5 ns DATAPATHONLY;
+
+NET "main_00/top0/data_path0/data_read_controller0/gen_wr_addr*fifo*_wr_addr_inst/clk" TNM_NET = "fifo_waddr_clk";
+TIMESPEC "TS_WADDR_CLK" = FROM "dqs_clk" TO "fifo_waddr_clk"  5 ns DATAPATHONLY;
+
+#############################################################################################################
+## Calibration Circuit Constraints
+#############################################################################################################
+## Placement constraints for LUTS in tap delay ckt
+#############################################################################################################
+INST "infrastructure_top0/cal_top0/tap_dly0/l0" RLOC=X0Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/l0" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l1" RLOC=X0Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/l1" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l2" RLOC=X0Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/l2" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l3" RLOC=X0Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/l3" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l4" RLOC=X1Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/l4" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l5" RLOC=X1Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/l5" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l6" RLOC=X1Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/l6" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l7" RLOC=X1Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/l7" U_SET = delay_calibration_chain;
+  
+INST "infrastructure_top0/cal_top0/tap_dly0/l8" RLOC=X0Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/l8" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l9" RLOC=X0Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/l9" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l10" RLOC=X0Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/l10" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l11" RLOC=X0Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/l11" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l12" RLOC=X1Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/l12" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l13" RLOC=X1Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/l13" U_SET = delay_calibration_chain;
+ 
+INST "infrastructure_top0/cal_top0/tap_dly0/l14" RLOC=X1Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/l14" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l15" RLOC=X1Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/l15" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l16" RLOC=X0Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/l16" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l17" RLOC=X0Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/l17" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l18" RLOC=X0Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/l18" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l19" RLOC=X0Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/l19" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l20" RLOC=X1Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/l20" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l21" RLOC=X1Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/l21" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l22" RLOC=X1Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/l22" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l23" RLOC=X1Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/l23" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l24" RLOC=X0Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/l24" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l25" RLOC=X0Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/l25" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l26" RLOC=X0Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/l26" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l27" RLOC=X0Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/l27" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l28" RLOC=X1Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/l28" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l29" RLOC=X1Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/l29" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l30" RLOC=X1Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/l30" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/l31" RLOC=X1Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/l31" U_SET = delay_calibration_chain;
+
+#################################################################################################################
+# Placement constraints for first stage flops in tap delay ckt
+#################################################################################################################
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[0].r" RLOC=X0Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[0].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[1].r" RLOC=X0Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[1].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[2].r" RLOC=X0Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[2].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[3].r" RLOC=X0Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[3].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[4].r" RLOC=X1Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[4].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[5].r" RLOC=X1Y6;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[5].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[6].r" RLOC=X1Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[6].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[7].r" RLOC=X1Y7;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[7].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[8].r" RLOC=X0Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[8].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[9].r" RLOC=X0Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[9].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[10].r" RLOC=X0Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[10].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[11].r" RLOC=X0Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[11].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[12].r" RLOC=X1Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[12].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[13].r" RLOC=X1Y4;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[13].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[14].r" RLOC=X1Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[14].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[15].r" RLOC=X1Y5;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[15].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[16].r" RLOC=X0Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[16].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[17].r" RLOC=X0Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[17].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[18].r" RLOC=X0Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[18].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[19].r" RLOC=X0Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[19].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[20].r" RLOC=X1Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[20].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[21].r" RLOC=X1Y2;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[21].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[22].r" RLOC=X1Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[22].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[23].r" RLOC=X1Y3;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[23].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[24].r" RLOC=X0Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[24].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[25].r" RLOC=X0Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[25].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[26].r" RLOC=X0Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[26].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[27].r" RLOC=X0Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[27].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[28].r" RLOC=X1Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[28].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[29].r" RLOC=X1Y0;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[29].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[30].r" RLOC=X1Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[30].r" U_SET = delay_calibration_chain;
+
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[31].r" RLOC=X1Y1;
+INST "infrastructure_top0/cal_top0/tap_dly0/gen_tap1[31].r" U_SET = delay_calibration_chain;
+
+#####################################################################################################################
+## BEL constraints for LUTS in tap delay ckt
+#####################################################################################################################
+INST "infrastructure_top0/cal_top0/tap_dly0/l0"  BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l1"  BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l2"  BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l3"  BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l4"  BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l5"  BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l6"  BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l7"  BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l8"  BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l9"  BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l10" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l11" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l12" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l13" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l14" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l15" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l16" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l17" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l18" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l19" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l20" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l21" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l22" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l23" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l24" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l25" BEL= F;  
+INST "infrastructure_top0/cal_top0/tap_dly0/l26" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l27" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l28" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l29" BEL= F;
+INST "infrastructure_top0/cal_top0/tap_dly0/l30" BEL= G;
+INST "infrastructure_top0/cal_top0/tap_dly0/l31" BEL= F;
+
+
+
+##############################################################################################################
+## RLOC Origin constraint for LUT delay calibration chain.
+##############################################################################################################
+INST "infrastructure_top0/cal_top0/tap_dly0/l0" RLOC_ORIGIN = X52Y130;
+
+##############################################################################################################
+## Area Group Constraint For tap_dly and cal_ctl module.
+##############################################################################################################
+INST "infrastructure_top0/cal_top0/cal_ctl0" AREA_GROUP = cal_ctl;
+INST "infrastructure_top0/cal_top0/tap_dly0" AREA_GROUP = cal_ctl;
+AREA_GROUP "cal_ctl" RANGE = SLICE_X52Y130:SLICE_X63Y143;
+AREA_GROUP "cal_ctl" GROUP = CLOSED;
+
+##############################################################################################################
+
+#***********************************************************************************************************#
+#                        CONTROLLER 0                                                                  
+#***********************************************************************************************************#
+
+##############################################################################################################
+# I/O STANDARDS                                                         
+##############################################################################################################
+NET  "cntrl0_ddr_dq[*]"                         IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_a[*]"                          IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_ba[*]"                         IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_cke"                           IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_cs_n"                          IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_ras_n"                         IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_cas_n"                         IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_we_n"                          IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_dm[*]"                         IOSTANDARD = SSTL2_I;
+NET  "cntrl0_rst_dqs_div_in"                    IOSTANDARD = SSTL2_I;
+NET  "cntrl0_rst_dqs_div_out"                   IOSTANDARD = SSTL2_I;
+NET  "sys_clkb"                                 IOSTANDARD = LVDS_25;
+NET  "sys_clk"                                  IOSTANDARD = LVDS_25;
+NET  "cntrl0_led_error_output1"                 IOSTANDARD = SSTL2_I;
+NET  "cntrl0_data_valid_out"                    IOSTANDARD = SSTL2_I;
+NET  "cntrl0_init_done"                         IOSTANDARD = SSTL2_I;
+NET  "reset_in_n"                               IOSTANDARD = LVCMOS25;
+NET  "cntrl0_ddr_dqs[*]"                        IOSTANDARD = SSTL2_I;
+NET  "cntrl0_ddr_ck[*]"                         IOSTANDARD = DIFF_SSTL2_I;
+NET  "cntrl0_ddr_ck_n[*]"                       IOSTANDARD = DIFF_SSTL2_I;
+
+
+##############################################################################################################
+# Pin Location Constraints for System clock signals
+##############################################################################################################
+NET  "sys_clkb"                                   LOC = "D9" ;     #bank 0
+NET  "sys_clk"                                    LOC = "C9" ;     #bank 0
+
+##############################################################################################################
+# Pin Location Constraints for Clock,Masks, Address, and Controls 
+##############################################################################################################
+NET  "cntrl0_ddr_ck[0]"                          LOC = "T2" ;     #bank 3
+NET  "cntrl0_ddr_ck_n[0]"                          LOC = "T1" ;     #bank 3
+NET  "cntrl0_ddr_dm[0]"                          LOC = "N4" ;     #bank 3
+NET  "cntrl0_ddr_dm[1]"                          LOC = "M3" ;     #bank 3
+NET  "cntrl0_ddr_a[13]"                           LOC = "R3" ;     #bank 3
+NET  "cntrl0_ddr_a[12]"                           LOC = "R2" ;     #bank 3
+NET  "cntrl0_ddr_a[11]"                           LOC = "P3" ;     #bank 3
+NET  "cntrl0_ddr_a[10]"                           LOC = "P4" ;     #bank 3
+NET  "cntrl0_ddr_a[9]"                            LOC = "P2" ;     #bank 3
+NET  "cntrl0_ddr_a[8]"                            LOC = "P1" ;     #bank 3
+NET  "cntrl0_ddr_a[7]"                            LOC = "H6" ;     #bank 3
+NET  "cntrl0_ddr_a[6]"                            LOC = "H5" ;     #bank 3
+NET  "cntrl0_ddr_a[5]"                            LOC = "G6" ;     #bank 3
+NET  "cntrl0_ddr_a[4]"                            LOC = "G5" ;     #bank 3
+NET  "cntrl0_ddr_a[3]"                            LOC = "F1" ;     #bank 3
+NET  "cntrl0_ddr_a[2]"                            LOC = "F2" ;     #bank 3
+NET  "cntrl0_ddr_a[1]"                            LOC = "E4" ;     #bank 3
+NET  "cntrl0_ddr_a[0]"                            LOC = "E3" ;     #bank 3
+NET  "cntrl0_ddr_ba[1]"                           LOC = "E2" ;     #bank 3
+NET  "cntrl0_ddr_ba[0]"                           LOC = "E1" ;     #bank 3
+NET  "cntrl0_ddr_cke"                             LOC = "C1" ;     #bank 3
+NET  "cntrl0_ddr_cs_n"                            LOC = "C2" ;     #bank 3
+NET  "cntrl0_ddr_ras_n"                           LOC = "G3" ;     #bank 3
+NET  "cntrl0_ddr_cas_n"                           LOC = "D4" ;     #bank 3
+NET  "cntrl0_ddr_we_n"                            LOC = "D1" ;     #bank 3
+NET  "reset_in_n"                                 LOC = "B3" ;     #bank 0
+NET  "cntrl0_led_error_output1"                   LOC = "C3" ;     #bank 0
+NET  "cntrl0_data_valid_out"                      LOC = "B4" ;     #bank 0
+NET  "cntrl0_init_done"                           LOC = "A4" ;     #bank 0
+
+##############################################################################################################
+## MAXDELAY constraints
+##############################################################################################################
+
+##############################################################################################################
+## Constraint to have the tap delay inverter connection wire length to be the same and minimum to get
+## accurate calibration of tap delays. The following constraints are independent of frequency.
+##############################################################################################################
+NET "infrastructure_top0/cal_top0/tap_dly0/tap[7]"  MAXDELAY = 400 ps;
+NET "infrastructure_top0/cal_top0/tap_dly0/tap[15]"  MAXDELAY = 400 ps;
+NET "infrastructure_top0/cal_top0/tap_dly0/tap[23]"  MAXDELAY = 400 ps;
+
+##############################################################################################################
+## MAXDELAY constraint on inter LUT delay elements. This constraint is required to minimize the 
+## wire delays between the LUTs.
+##############################################################################################################
+NET "main_00/top0/data_path0/data_read_controller0/gen_delay*dqs_delay_col*/delay*"  MAXDELAY = 200 ps;
+NET "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/delay*"  MAXDELAY = 200 ps;
+
+##############################################################################################################
+## Constraint from the dqs PAD to input of LUT delay element.
+##############################################################################################################
+NET "main_00/top0/dqs_int_delay_in*" MAXDELAY = 460 ps;
+
+##############################################################################################################
+## Constraint from rst_dqs_div_in PAD to input of LUT delay element.
+##############################################################################################################
+NET "main_00/top0/dqs_div_rst" MAXDELAY = 460 ps;
+
+##############################################################################################################
+## Following are the MAXDELAY constraints on delayed rst_dqs_div net and fifo write enable signals.
+## These constraints are required since these paths are not covered by timing analysis. The requirement is total
+## delay on delayed rst_dqs_div and fifo_wr_en nets should not exceed the clock period.
+##############################################################################################################
+NET "main_00/top0/data_path0/data_read_controller0/rst_dqs_div"  MAXDELAY = 2409 ps;
+NET "main_00/top0/data_path0/data_read0/fifo*_wr_en*"                    MAXDELAY = 2409 ps;
+
+##############################################################################################################
+## The MAXDELAY value on fifo write address should be less than clock period. This constraint is 
+## required since this path is not covered by timing analysis.
+##############################################################################################################
+NET "main_00/top0/data_path0/data_read0/fifo*_wr_addr[*]"           MAXDELAY = 5120 ps;
+
+##############################################################################################################
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 1, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[1]" LOC = "N5";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit1"   LOC = SLICE_X0Y46;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit1" LOC = SLICE_X0Y47;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 3, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[3]" LOC = "M6";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit3"   LOC = SLICE_X0Y50;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit3" LOC = SLICE_X0Y51;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 0, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[0]" LOC = "M5";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit0"   LOC = SLICE_X2Y50;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit0" LOC = SLICE_X2Y51;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 2, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[2]" LOC = "M4";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit2"   LOC = SLICE_X2Y54;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit2" LOC = SLICE_X2Y55;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dqs, 0, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dqs[0]" LOC = "L6";     #bank 3
+
+##############################################################################################################
+## LUT location constraints for dqs_delayed_col0
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/one" LOC = SLICE_X0Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/one" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/two" LOC = SLICE_X0Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/two" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/three" LOC = SLICE_X0Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/three" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/four" LOC = SLICE_X0Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/four" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/five" LOC = SLICE_X1Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/five" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/six" LOC = SLICE_X1Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col0/six" BEL = G;
+
+##############################################################################################################
+## LUT location constraints for dqs_delayed_col1
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/one" LOC = SLICE_X2Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/one" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/two" LOC = SLICE_X2Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/two" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/three" LOC = SLICE_X2Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/three" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/four" LOC = SLICE_X2Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/four" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/five" LOC = SLICE_X3Y59;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/five" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/six" LOC = SLICE_X3Y58;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[0].dqs_delay_col1/six" BEL = G;
+
+##############################################################################################################
+## Slice location constraints for Fifo write address and write enable
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_0_wr_addr_inst/bit0" LOC = SLICE_X3Y54;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_0_wr_addr_inst/bit1" LOC = SLICE_X3Y54;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_0_wr_addr_inst/bit2" LOC = SLICE_X3Y55;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_0_wr_addr_inst/bit3" LOC = SLICE_X3Y55;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_1_wr_addr_inst/bit0" LOC = SLICE_X1Y54;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_1_wr_addr_inst/bit1" LOC = SLICE_X1Y54;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_1_wr_addr_inst/bit2" LOC = SLICE_X1Y55;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[0].fifo_1_wr_addr_inst/bit3" LOC = SLICE_X1Y55;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_en[0].fifo_0_wr_en_inst" LOC = SLICE_X3Y57;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_en[0].fifo_1_wr_en_inst" LOC = SLICE_X1Y57;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 5, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[5]" LOC = "L4";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit5"   LOC = SLICE_X0Y62;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit5" LOC = SLICE_X0Y63;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 4, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[4]" LOC = "L3";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit4"   LOC = SLICE_X2Y62;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit4" LOC = SLICE_X2Y63;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 7, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[7]" LOC = "L2";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit7"   LOC = SLICE_X0Y66;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit7" LOC = SLICE_X0Y67;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 6, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[6]" LOC = "L1";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe/fifo_bit6"   LOC = SLICE_X2Y66;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[0].strobe_n/fifo_bit6" LOC = SLICE_X2Y67;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 9, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[9]" LOC = "K4";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit1"   LOC = SLICE_X0Y74;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit1" LOC = SLICE_X0Y75;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 8, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[8]" LOC = "K3";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit0"   LOC = SLICE_X2Y74;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit0" LOC = SLICE_X2Y75;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 11, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[11]" LOC = "J2";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit3"   LOC = SLICE_X0Y78;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit3" LOC = SLICE_X0Y79;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 10, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[10]" LOC = "J1";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit2"   LOC = SLICE_X2Y78;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit2" LOC = SLICE_X2Y79;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dqs, 1, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dqs[1]" LOC = "J5";     #bank 3
+
+##############################################################################################################
+## LUT location constraints for dqs_delayed_col0
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/one" LOC = SLICE_X0Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/one" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/two" LOC = SLICE_X0Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/two" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/three" LOC = SLICE_X0Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/three" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/four" LOC = SLICE_X0Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/four" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/five" LOC = SLICE_X1Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/five" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/six" LOC = SLICE_X1Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col0/six" BEL = G;
+
+##############################################################################################################
+## LUT location constraints for dqs_delayed_col1
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/one" LOC = SLICE_X2Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/one" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/two" LOC = SLICE_X2Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/two" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/three" LOC = SLICE_X2Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/three" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/four" LOC = SLICE_X2Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/four" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/five" LOC = SLICE_X3Y83;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/five" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/six" LOC = SLICE_X3Y82;
+INST "main_00/top0/data_path0/data_read_controller0/gen_delay[1].dqs_delay_col1/six" BEL = G;
+
+##############################################################################################################
+## Slice location constraints for Fifo write address and write enable
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_0_wr_addr_inst/bit0" LOC = SLICE_X3Y78;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_0_wr_addr_inst/bit1" LOC = SLICE_X3Y78;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_0_wr_addr_inst/bit2" LOC = SLICE_X3Y79;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_0_wr_addr_inst/bit3" LOC = SLICE_X3Y79;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_1_wr_addr_inst/bit0" LOC = SLICE_X1Y78;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_1_wr_addr_inst/bit1" LOC = SLICE_X1Y78;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_1_wr_addr_inst/bit2" LOC = SLICE_X1Y79;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_addr[1].fifo_1_wr_addr_inst/bit3" LOC = SLICE_X1Y79;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_en[1].fifo_0_wr_en_inst" LOC = SLICE_X3Y81;
+INST "main_00/top0/data_path0/data_read_controller0/gen_wr_en[1].fifo_1_wr_en_inst" LOC = SLICE_X1Y81;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 13, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[13]" LOC = "H1";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit5"   LOC = SLICE_X0Y86;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit5" LOC = SLICE_X0Y87;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 12, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[12]" LOC = "H2";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit4"   LOC = SLICE_X2Y86;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit4" LOC = SLICE_X2Y87;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 15, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[15]" LOC = "H3";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit7"   LOC = SLICE_X0Y90;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit7" LOC = SLICE_X0Y91;
+
+##############################################################################################################
+##  constraints for bit cntrl0_ddr_dq, 14, location in tile: 0
+##############################################################################################################
+NET "cntrl0_ddr_dq[14]" LOC = "H4";     #bank 3
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe/fifo_bit6"   LOC = SLICE_X2Y90;
+INST "main_00/top0/data_path0/data_read0/gen_strobe[1].strobe_n/fifo_bit6" LOC = SLICE_X2Y91;
+
+##############################################################################################################
+##  constraints for bit cntrl0_rst_dqs_div_in, 1, location in tile: 1
+##############################################################################################################
+NET "cntrl0_rst_dqs_div_in" LOC = "K6";     #bank 3
+
+##############################################################################################################
+## Slice location constraints for delayed rst_dqs_div signal
+##############################################################################################################
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/one" LOC = SLICE_X0Y71;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/one" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/two" LOC = SLICE_X0Y70;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/two" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/three" LOC = SLICE_X0Y71;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/three" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/four" LOC = SLICE_X1Y70;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/four" BEL = F;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/five" LOC = SLICE_X1Y70;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/five" BEL = G;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/six" LOC = SLICE_X1Y71;
+INST "main_00/top0/data_path0/data_read_controller0/rst_dqs_div_delayed/six" BEL = G;
+
+##############################################################################################################
+##  constraints for bit cntrl0_rst_dqs_div_out, 1, location in tile: 0
+##############################################################################################################
+NET "cntrl0_rst_dqs_div_out" LOC = "K5";     #bank 3
+
+##############################################################################################################
+## Location constraint for rst_dqs_div_r flop in the controller. This is to be placed close the PAD
+## that drives the rst_dqs_div _out signal to meet the timing.
+##############################################################################################################
+INST "main_00/top0/controller0/rst_dqs_div_r" LOC = SLICE_X12Y71;
+##############################################################################################################
