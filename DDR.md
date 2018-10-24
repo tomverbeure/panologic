@@ -1,5 +1,12 @@
 # DDR Information and Resources
 
+* [Xilinx - UG086 - Memory Interface Solutions User Guide](https://www.xilinx.com/support/documentation/ip_documentation/ug086.pdf#page=281)
+
+    Chapter 7 describes the MIG DDR SDRAM implementation for Spartan-3E. This is probably the best place to get started.
+
+    The source code of a MIG-generated DDR SDRAM controller for the Pano Logic Spartan-3E can be found [here](./bringup/spartan3e_ddr_ctrl).
+
+
 * [The Love/Hate Relationship with DDR SDRAM Controllers](https://www.design-reuse.com/articles/13805/the-love-hate-relationship-with-ddr-sdram-controllers.html)
 
     Interesting the history of DLL, DQS etc. in SDRAMs.
