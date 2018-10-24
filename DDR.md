@@ -1,3 +1,7 @@
+# LPDDR vs DDR
+
+![DDR vs LPDDR](./waveform_ddr_vs_lpddr.png)
+
 # DDR Information and Resources
 
 ## Xilinx
