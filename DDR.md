@@ -29,6 +29,10 @@
     Information about [DCMs](https://www.xilinx.com/support/documentation/user_guides/ug331.pdf#page=65&zoom=100,0,194), 
     [DDR IOs](https://www.xilinx.com/support/documentation/user_guides/ug331.pdf#page=328&zoom=100,0,408) etc.
 
+* [Xilinx - UG608 - Spartan-3 Libraries Guide for Schematic Design](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/spartan3_scm.pdf)
+
+    Describes the low level cells that can be used in an Spartan-3 design. For example, a RAM64X1S cell or a MULT18X18S cell. 
+
 ## Micron
 
 * [Micron TN4615 - Low-Power Versus Standard DDR SDRAM](https://www.micron.com/~/media/documents/products/technical-note/dram/tn4615.pdf)
