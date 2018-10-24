@@ -172,7 +172,7 @@ Notes:
 
     Chip has 'D9FSD' marker, which is the FPBA code for MT46H8M32LFB5-6:A.
 
-    2 Meg x 32 x 4 Banks = 8M x 32-bits or 64MByte.
+    2 Meg x 32 x 4 Banks = 8M x 32-bits or 32MByte.
 
     166MHz clock. Max BW: 2 x 166 x 32 = 10.6 Gbit/s or 1.32 GByte/s. (24bpp 1080p@60 ~ 3Gbps)
 
