@@ -45,7 +45,7 @@
     receive side.)
 
 
-# Example Source code
+## Example Source code
 
 * [SpinalHDL Example SDRAM Controller](https://github.com/SpinalHDL/SpinalHDL/tree/master/lib/src/main/scala/spinal/lib/memory/sdram)
 
@@ -55,7 +55,7 @@
 
     Uses DDR IOs and DCM to create phase clocks, but doesn't use DQS on input: that just gets ignored. Probably still good enough for slower speeds?
 
-# General SDRAM Information
+## General SDRAM Information
 
 * [The Love/Hate Relationship with DDR SDRAM Controllers](https://www.design-reuse.com/articles/13805/the-love-hate-relationship-with-ddr-sdram-controllers.html)
 
