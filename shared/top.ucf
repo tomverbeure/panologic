@@ -31,6 +31,7 @@ NET "spi_dq1" LOC = N10 |IOSTANDARD = LVCMOS33;
 
 NET "led_green" LOC = H1  |IOSTANDARD = LVCMOS33;
 NET "led_blue"  LOC = L1  |IOSTANDARD = LVCMOS33;
+NET "led_red"   LOC = L3  |IOSTANDARD = LVCMOS33;
 
 #============================================================
 # AUDIO - Wolfson CODEC
@@ -253,7 +254,7 @@ NET "eth_rxdv"      LOC = R1   |IOSTANDARD = LVCMOS33;       # Pin 9
 NET "eth_rxc"       LOC = K4   |IOSTANDARD = LVCMOS33;       # Pin 10
 NET "eth_rxer"      LOC = U1   |IOSTANDARD = LVCMOS33;       # Pin 11
 NET "eth_txer"      LOC = R2   |IOSTANDARD = LVCMOS33;       # Pin 14
-#NET "eth_txc"       LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 15, not connected?
+NET "eth_txc"       LOC = K5   |IOSTANDARD = LVCMOS33;       # Pin 15
 NET "eth_txen"      LOC = R3   |IOSTANDARD = LVCMOS33;       # Pin 16
 NET "eth_txd[0]"    LOC = P4   |IOSTANDARD = LVCMOS33;       # Pin 17
 NET "eth_txd[1]"    LOC = P1   |IOSTANDARD = LVCMOS33;       # Pin 18
