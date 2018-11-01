@@ -57,8 +57,8 @@ to program that file into the SPI flash through JTAG.
 
 Detailed instructions are here:
 
-    * [Xilinx - Introduction to Indirect Programming – SPI or BPI Flash Memory](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_c_introduction_indirect_programming.htm)
-    * [Xilinx - Programming an SPI or BPI Flash Memory through an FPGA](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_p_configure_spi_bpi_through_fpga.htm)
+* [Xilinx - Introduction to Indirect Programming – SPI or BPI Flash Memory](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_c_introduction_indirect_programming.htm)
+* [Xilinx - Programming an SPI or BPI Flash Memory through an FPGA](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_p_configure_spi_bpi_through_fpga.htm)
 
 ## Board to Board Connector
 

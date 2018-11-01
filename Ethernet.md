@@ -1,7 +1,7 @@
 
 # Ethernet
 
-    10/100BASE-TX/FX MII Physical Layer Transceiver
+10/100BASE-TX/FX MII Physical Layer Transceiver
 
 # Resources
 
