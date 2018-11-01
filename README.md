@@ -119,9 +119,11 @@ Notes:
     * [DS312: Spartan-3E FPGA Family: Functional Description](http://www.xilinx.com/support/documentation/data_sheets/ds312.pdf)
     * [UG331: Spartan-3 Generation FPGA User Guide](https://www.xilinx.com/support/documentation/user_guides/ug331.pdf)
 
-* [Micrel KSZ8721BL 10/100BASE-TX/FX MII Physical Layer Transceiver](https://www.mouser.com/ProductDetail/Microchip-Technology-Micrel/KSZ8721BL?qs=kh6iOki%2FeLEk0sRQ0%2FKccQ%3D%3D)
+* [Micrel KSZ8721BL 10/100BASE-TX/FX Ethernet MII Physical Layer Transceiver](https://www.mouser.com/ProductDetail/Microchip-Technology-Micrel/KSZ8721BL?qs=kh6iOki%2FeLEk0sRQ0%2FKccQ%3D%3D)
 
     10/100BASE-TX/FX MII Physical Layer Transceiver
+
+    Information regarding Ethernet has been gathered [here](Ethernet.md)
 
 * [Wolfson WM8750BL](https://www.cirrus.com/products/wm8750/)
 
