@@ -25,6 +25,8 @@ NET "spi_clk" LOC = U16 |IOSTANDARD = LVCMOS33;
 NET "spi_dq0" LOC = T4  |IOSTANDARD = LVCMOS33;
 NET "spi_dq1" LOC = N10 |IOSTANDARD = LVCMOS33;
 
+#NET "prog_b"  LOC = B2 |IOSTANDARD = LVCMOS33; # See DS312. Hold low to program SPI. Connected to "Short to Program" jumper.
+
 #============================================================
 # Button
 #============================================================

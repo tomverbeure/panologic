@@ -43,6 +43,23 @@ Pinout is as follows:
 5. DQ0 (MOSI)
 6. VCC
 
+The SPI pins are used to configure the bitstream at power-up. After that, they become user IO.
+
+To program the SPI, use the "Short to Program" jumper and attach SPI programmer to the connector. The
+"Short to Program" jumper pulls the PROG\_B pin of the FPGA to ground, which forces all FPGA IOs into
+Hi-Z.
+
+During development, since the JTAG is already connected anyway, it's easier to program the SPI flash through
+JTAG.
+
+The procedure is simply: Using Impact, create an 'mcs' file that contains the bitstream in SPI programming format. Then use Impact
+to program that file into the SPI flash through JTAG.
+
+Detailed instructions are here:
+
+    * [Xilinx - Introduction to Indirect Programming – SPI or BPI Flash Memory](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_c_introduction_indirect_programming.htm)
+    * [Xilinx - Programming an SPI or BPI Flash Memory through an FPGA](https://www.xilinx.com/support/documentation/sw_manuals/xilinx11/pim_p_configure_spi_bpi_through_fpga.htm)
+
 ## Board to Board Connector
 
 ![Board 2 Board Connector Footprint](doc/board2board_conn_footprint.jpg)
