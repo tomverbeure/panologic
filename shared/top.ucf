@@ -26,12 +26,18 @@ NET "spi_dq0" LOC = T4  |IOSTANDARD = LVCMOS33;
 NET "spi_dq1" LOC = N10 |IOSTANDARD = LVCMOS33;
 
 #============================================================
+# Button
+#============================================================
+
+NET "button"  LOC = R7  |IOSTANDARD = LVCMOS33;
+
+#============================================================
 # LEDs
 #============================================================
 
 NET "led_green" LOC = H1  |IOSTANDARD = LVCMOS33;
 NET "led_blue"  LOC = L1  |IOSTANDARD = LVCMOS33;
-NET "led_red"   LOC = L3  |IOSTANDARD = LVCMOS33;
+NET "led_red"   LOC = L3  |IOSTANDARD = LVCMOS33;   # Is this an input or an output, coming from the Micrel PHY?
 
 #============================================================
 # AUDIO - Wolfson CODEC
@@ -275,7 +281,6 @@ NET "eth_led[0]"    LOC = K2   |IOSTANDARD = LVCMOS33;       # Pin 26
 # Board to Board Connector
 #============================================================
 #NET "b2b_a[18]"  LOC = E5  |IOSTANDARD = LVCMOS33;          # B2B A[18]
-#NET "b2b_aa[8]"  LOC = R7  |IOSTANDARD = LVCMOS33;          # B2B A'[8]
 #NET "b2b_aa[16]" LOC = B7  |IOSTANDARD = LVCMOS33;          # B2B A'[16]
 
 

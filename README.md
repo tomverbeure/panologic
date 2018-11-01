@@ -38,9 +38,9 @@ Pinout is as follows:
 
 1. GND
 2. CS#
-3. MOSI
+3. DQ1 (MISO)
 4. CLK
-5. MISO
+5. DQ0 (MOSI)
 6. VCC
 
 ## Board to Board Connector
@@ -83,7 +83,7 @@ A'\* = outward facing side of the connector
 | A'8   | Button            | R7   | (Pressed is 3.3V) | 
 | A'9   | LED Green         | H1   |
 | A'10  | LED Blue          | L1   |
-| A'11  | ?                 |      | 4.8V
+| A'11  | LED Red           | L3   | 4.8V (but 3.3V at FPGA)
 |       |                   |      |
 | A'14  | GND               |      |
 | A'15  | ?                 |      | 3.1V
