@@ -39,9 +39,9 @@ short int audio_registers[][2] = {
                                         (1<<0) },   // USB    : 12MHz USB clock mode 
     // Set left and right channel volume
     { WM8750_LCHAN_VOL_ADDR,            (0<<8) |    // LDVU   : No left DAC volume update
-                                        (0xa0) },   // LDACVOL: Set output volume to middle
+                                        (0xff) },   // LDACVOL: Set output volume to middle
     { WM8750_RCHAN_VOL_ADDR,            (1<<8) |    // RDVU   : Update left and right DAC volume
-                                        (0xa0) },   // RDACVOL: Set output volume to middle
+                                        (0xff) },   // RDACVOL: Set output volume to middle
 
     // Bass control
     { WM8750_BASS_CTRL_ADDR,            (0<<7) |    // BB  : Linear bass control
@@ -124,13 +124,13 @@ short int audio_registers[][2] = {
     { WM8750_MONO_MIXER_CTRL2_ADDR,     0 },
 
     // LOUT2/ROUT2 configuration for mono
-    { WM8750_LOUT2_VOL_ADDR,            (1<<8) |    // LO2VU    : Don't update LOUT2 volume yet
+    { WM8750_LOUT2_VOL_ADDR,            (0<<8) |    // LO2VU    : Don't update LOUT2 volume yet
                                         (0<<7) |    // LO2ZC    : Change gain on zero cross only
-                                     (0x80<<0) },   // LOUT2VOL : Volume...
+                                      (127<<0) },   // LOUT2VOL : Volume...
 
     { WM8750_ROUT2_VOL_ADDR,            (1<<8) |    // RO2VU    : Update LOUT2 and ROUT2 volume 
                                         (0<<7) |    // RO2ZC    : Change gain on zero cross only
-                                     (0x80<<0) },   // ROUT2VOL : Volume...
+                                      (127<<0) },   // ROUT2VOL : Volume...
 
     // Mono output isn't used
     { WM8750_MONOOUT_VOL_ADDR,          0 },
@@ -140,9 +140,9 @@ short int audio_registers[][2] = {
 
 void audio_init()
 {
-	audio_i2c_ctx.base_addr = 0;
-	audio_i2c_ctx.scl_pin_nr = 2;
-	audio_i2c_ctx.sda_pin_nr = 3;
+    audio_i2c_ctx.base_addr = 0;
+    audio_i2c_ctx.scl_pin_nr = 2;
+    audio_i2c_ctx.sda_pin_nr = 3;
 
     i2c_init(&audio_i2c_ctx);
 
