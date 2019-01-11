@@ -9,6 +9,10 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
  * [In Search of FPGAs or Pano Logic Generation 1 Teardown](http://blog.2gn.com/electronics/in-search-of-fpgas-or-pano-logic-generation-1-teardown/)
  * [Exploiting the FPGA in the Pano Logic Zero Client](http://blog.2gn.com/electronics/exploiting-the-fpga-in-the-pano-logic-zero-client/)
  * [More Reverse Engineering of the Pano Logic Thin Client G1](http://blog.2gn.com/electronics/more-reverse-engineering-of-the-panologic-thin-client-g1-2/)
+ 
+ ## Related Projects
+ 
+ * [Pano Man](https://github.com/skiphansen/pano_man) implements the original PacMan on Pano G1
 
 ## Main Board
 
