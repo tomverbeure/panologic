@@ -259,7 +259,7 @@ module soc
     assign usb_a        = 17'd0;
     assign usb_d        = {16{1'bz}};
 
-    always @*
+    always 
     begin
         mem_rsp_ready_usb = 1'b1;
         mem_rsp_rdata_usb = 32'hdeadbeef;
