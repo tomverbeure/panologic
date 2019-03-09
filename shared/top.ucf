@@ -181,8 +181,8 @@ NET "vo_b[6]" LOC = D6  |IOSTANDARD = LVCMOS18;    # B8
 NET "vo_b[5]" LOC = C3  |IOSTANDARD = LVCMOS18;    # B7
 NET "vo_b[4]" LOC = E6  |IOSTANDARD = LVCMOS18;    # B6
 NET "vo_b[3]" LOC = B4  |IOSTANDARD = LVCMOS18;    # B5
-NET "vo_b[2]" LOC = C5  |IOSTANDARD = LVCMOS18;    # B4     # FIXME: swap around C5 and B5?
-NET "vo_b[1]" LOC = B6  |IOSTANDARD = LVCMOS18;    # B3
+NET "vo_b[2]" LOC = B6  |IOSTANDARD = LVCMOS18;    # B4
+NET "vo_b[1]" LOC = C5  |IOSTANDARD = LVCMOS18;    # B3
 NET "vo_b[0]" LOC = A6  |IOSTANDARD = LVCMOS18;    # B2
                                                     # B1 = GND
                                                     # B0 = GND
@@ -250,7 +250,6 @@ NET "uhub_scl"      LOC = H2   |IOSTANDARD = LVCMOS33;       # Pin 24
 NET "uhub_reset_n"  LOC = H4   |IOSTANDARD = LVCMOS33;       # Pin 26
 #NET "uhub_non_rem0" LOC = xx   |IOSTANDARD = LVCMOS33;       # Pin 28
 
-#NET "uhub_cfg_sel0" LOC = H2   |IOSTANDARD = LVCMOS33;       # Pin 24, 10k pulldown, UHUB_SCL
 NET "uhub_cfg_sel1" LOC = H5   |IOSTANDARD = LVCMOS33;       # Pin 25, 10k pulldown, HS_IND
 
 #============================================================
