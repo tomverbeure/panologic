@@ -1,5 +1,7 @@
 # Pano Logic Zero Client G1
 
+Questions? Try the Pano Logic gitter chat room! https://gitter.im/panologic/community
+
 ## Introduction
 
 The project log can be found [here](https://hackaday.io/project/136227-panologic-zero-client-g1).
