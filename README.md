@@ -126,6 +126,7 @@ Notes:
     1600K system gates, 231K distribute RAM bits, 648K block RAM bits, 36 18x18 multipliers.
 
     Supported by Xilinx ISE 14.7 Free edition!
+    (Download [here](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive-ise.html))
 
     Full component name: XC3S1600E-FGG320 320 package. ([Drawing](https://www.xilinx.com/support/documentation/package_specs/fg320.pdf))
     Speed grade 5, Commercial.
