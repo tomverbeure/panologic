@@ -163,8 +163,9 @@ Notes:
 
 * [NXP ISP1760](http://www.mouser.com/ds/2/302/ISP1760_3-197088.pdf)
 
-    Hi-Speed Universal Serial Bus host controller for embedded applications with built-in 3-port HUB. However, for some reason
-    there is a separate 3-port HUB on the board, so I assume that only one port is used. (Why?)
+    Hi-Speed Universal Serial Bus host controller for embedded applications with a built-in 3-port HUB.
+    To mitigate one of the controller’s errata a separate 3-port HUB was installed on the board, only
+    exposing one of the hub ports on the ISP1760 through the separate hub SMSC USB2513.
 
 * [SMSC USB2513](http://www.mouser.com/catalog/specsheets/2513.pdf)
 
