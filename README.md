@@ -15,6 +15,8 @@ This project starts with the work of The Cranky Sysadmin, and will build on top 
  ## Related Projects
  
  * [Pano Man](https://github.com/skiphansen/pano_man) implements the original PacMan on Pano G1
+ * There exists [a low profile version of the Pano Logic G1](https://twitter.com/zephray_wenting/status/1751276911844557238)
+   which seems to behave the same as the regular cube. 
 
 ## Main Board
 
